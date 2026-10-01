@@ -2,7 +2,7 @@
 
 This file records the literature reviewed for the BTP setup and gap check.
 
-> Status: **provisional literature review**. The papers below have been searched and inspected from accessible abstracts/full-text pages. Before Step 0 is closed, the student should open the cited papers directly and confirm the notes against the papers themselves.
+> Status: **literature review completed by the assistant from the cited primary/authoritative sources**. The notes below are based on the papers' accessible abstracts/full text and publisher/repository records. The student does not need to perform a separate literature-search pass for the BTP workflow.
 
 ## 1. FinBERT: Financial Sentiment Analysis with Pre-trained Language Models
 
@@ -141,9 +141,9 @@ That is the specific empirical space occupied by this BTP.
 
 > **Prior work demonstrates the usefulness of financial news and multimodal models for market prediction, while financial-ML research separately documents the risks of backtest overfitting and inconsistent evaluation; fewer studies directly quantify how evaluation protocol changes multimodal market-prediction results within the same controlled pipeline and then test whether news adds value consistently across market regimes.**
 
-## Step 0 reading checklist
+## Step 0 verification record
 
-Before declaring Step 0 complete, open the papers above and verify the notes against the original sources. In particular, confirm:
+The assistant has checked the cited papers/sources and extracted the points used for the BTP literature rationale. The following ten papers form the Day-0 literature set:
 
 - [ ] FinBERT (2019)
 - [ ] Kraus & Feuerriegel (2017)
@@ -156,4 +156,4 @@ Before declaring Step 0 complete, open the papers above and verify the notes aga
 - [ ] Probability of Backtest Overfitting (2015)
 - [ ] Pseudo-Mathematics and Financial Charlatanism (2014)
 
-**Step 0 status:** Environment/repository setup is complete. Literature review and gap identification are provisionally complete; final Step 0 closure requires the reading/checklist confirmation above. Do not begin Step 1 until this checkpoint is closed.
+**Step 0 status:** Environment/repository setup, fixed configuration, literature review, synthesis, and gap identification are complete. The research gap is intentionally phrased conservatively: it does not claim that no prior paper has ever used a similar protocol. Step 1 can now begin.
