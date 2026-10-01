@@ -67,7 +67,15 @@ def parse_headlines(news_value) -> list[str]:
     if isinstance(news_value, list):
         return [str(x).strip() for x in news_value if str(x).strip()]
     text = str(news_value).strip()
-    return [text] if text else []
+    if not text:
+        return []
+    # The NIFTY paper describes a ranked list of headlines; the released
+    # dataset serializes that list primarily with pipe separators.
+    if "|" in text:
+        return [x.strip() for x in text.split("|") if x.strip()]
+    if "\\n" in text:
+        return [x.strip() for x in text.splitlines() if x.strip()]
+    return [text]
 
 
 def build_clean_table(raw: pd.DataFrame) -> pd.DataFrame:
