@@ -69,17 +69,19 @@ def parse_headlines(news_value) -> list[str]:
     text = str(news_value).strip()
     if not text:
         return []
-    # The NIFTY paper describes a ranked list of headlines; the released
-    # dataset serializes that list primarily with pipe separators.
-    if "|" in text:
-        return [x.strip() for x in text.split("|") if x.strip()]
-    if "\\n" in text:
+    # The released dataset stores the daily headlines as a text field. Some
+    # rows preserve one headline per line; when no line breaks are present,
+    # retain the field as one document rather than inventing separators.
+    if "\n" in text or "\r" in text:
         return [x.strip() for x in text.splitlines() if x.strip()]
     return [text]
 
 
 def build_clean_table(raw: pd.DataFrame) -> pd.DataFrame:
     """Build one chronological table with market data, headlines, labels and returns."""
+    raw = raw.copy()
+    raw["date"] = pd.to_datetime(raw["date"]).dt.normalize()
+    raw = raw.sort_values("date").reset_index(drop=True)
     market = parse_market_context(raw)
 
     clean = pd.DataFrame({
@@ -95,6 +97,7 @@ def build_clean_table(raw: pd.DataFrame) -> pd.DataFrame:
             clean[col] = market[col].values
 
     clean = clean.sort_values("date").reset_index(drop=True)
+    market = market.sort_values("date").reset_index(drop=True)
 
     if clean["date"].duplicated().any():
         dupes = clean.loc[clean["date"].duplicated(), "date"].tolist()
