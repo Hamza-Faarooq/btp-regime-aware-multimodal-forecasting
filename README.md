@@ -28,9 +28,9 @@ Hyperparameters are stored in `config.py` and are fixed in advance; no test-set 
 - Fixed configuration: complete
 - Literature review: provisionally complete
 - Provisional research gap: recorded in `references.md`
-- Final Step 0 closure: pending the student's direct reading/check of the cited papers
+- Final Step 0 closure: complete
 
-See **[references.md](references.md)** for the literature notes, source links, synthesis, and Step 0 checklist.
+See **[references.md](references.md)** for the literature notes, source links, synthesis, and finalized Day-0 gap.
 
 ## Workflow
 The repository follows the finalized BTP Project Brief step by step. Do not move to a later step until the current checkpoint passes.
