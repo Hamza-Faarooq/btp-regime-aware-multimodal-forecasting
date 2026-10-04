@@ -11,7 +11,9 @@ BTP project: evaluation robustness and regime-dependent news value.
 - M1: Price LSTM
 - M2: Price + frozen FinBERT
 - M3: Price + News + Regime
-- M4: News-only secondary model
+- M4: News-only model
+- M5: Regime-only model
+- M6: Price + 3-number FinBERT sentiment
 
 ## Evaluation protocols
 - **P1:** Random shuffle with all-data preprocessing — deliberately invalid temporal protocol
@@ -19,18 +21,18 @@ BTP project: evaluation robustness and regime-dependent news value.
 - **P3:** Chronological split with train-only preprocessing — strict protocol
 
 ## Reproducibility
-Fixed seeds: `0, 1, 2`.
+Fixed seeds for the final run: `0–9` (10 seeds).
 
 Hyperparameters are stored in `config.py` and are fixed in advance; no test-set tuning.
 
-## Day 0 status
+## Current executed status
 - Repository skeleton: complete
 - Fixed configuration: complete
-- Literature review: provisionally complete
+- Literature review: complete
 - Provisional research gap: recorded in `references.md`
-- Final Step 0 closure: complete
+- Main experiment: executed through analysis
 
 See **[references.md](references.md)** for the literature notes, source links, synthesis, and finalized Day-0 gap.
 
 ## Workflow
-The repository follows the finalized BTP Project Brief step by step. Do not move to a later step until the current checkpoint passes.
+The repository now records the executed working notebook state. Two explicitly planned robustness additions (regime-conditioned gating and LAG=1) remain pending execution.
