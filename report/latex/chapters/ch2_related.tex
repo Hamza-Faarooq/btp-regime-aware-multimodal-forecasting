@@ -1,0 +1,34 @@
+\newpage
+\section{Background and Related Work}\label{ch:related}
+\begin{infobox}
+\textbf{Scope note.} This chapter summarises a deliberately small set of references whose bibliographic details were checked against arXiv, SSRN or publisher records. The descriptions of the individual papers are based on their abstracts and main claims; the chapter is a positioning of this study, not an exhaustive survey of the field.
+\end{infobox}
+
+\subsection{Sequence Models for Price-Based Forecasting}
+Recurrent networks, and the Long Short-Term Memory (LSTM) cell in particular \cite{hochreiter1997}, are the standard building block for learning from windows of past market data. An LSTM reads a window of feature vectors one step at a time and keeps a gated memory; its final hidden state summarises the window and can be fed to a classifier. This report uses exactly that pattern with a small hidden size because the training set contains only about 1{,}460 labelled days.
+
+\subsection{Financial News as an Input}
+General language models are poorly calibrated to financial wording, so domain-adapted encoders are common. \textbf{FinBERT} \cite{araci2019} is a BERT model further pre-trained on financial text and fine-tuned for financial sentiment; it outputs a 768-dimensional representation and three class probabilities (positive, negative, neutral). Kraus and Feuerriegel \cite{kraus2017} studied deep networks with transfer learning to predict stock reactions from financial disclosures, and stress that results across studies are hard to compare because of differences in filtering, splits and metrics.
+
+A line of recent work combines FinBERT-style sentiment with LSTM price models. Halder \cite{halder2022} reports a FinBERT-LSTM model on NASDAQ-100 stocks with New York Times articles; Gu et al.\ \cite{gu2024} use Benzinga news with a similar design; Karada\c{s} et al.\ \cite{karadas2025} combine tweets and news scored by large language models and FinBERT and report improvements of up to about five percent over an LSTM baseline. More elaborate fusion mechanisms include gated cross-attention for movement prediction \cite{zong2024} and confidence-calibrated late fusion across several equity indices and market regimes \cite{wang2026}. These works motivate the question of whether news helps, and they show that the field is moving towards complex fusion. This report keeps the architecture deliberately small and instead concentrates on evaluation.
+
+\subsection{Evaluation Pitfalls in Financial Machine Learning}
+Financial series are noisy, non-stationary and autocorrelated, which creates several risks.
+\begin{itemize}
+\item \textbf{Random splitting.} If overlapping windows from neighbouring days are shuffled across training and test sets, near-copies of test samples appear in training.
+\item \textbf{Preprocessing leakage.} Scalers or clusters fitted on the full sample let test-period statistics shape the model inputs.
+\item \textbf{Backtest overfitting.} Bailey et al.\ \cite{bailey2014,bailey2015} show that selecting the best of many configurations on one historical sample inflates apparent performance, and recommend disclosing the number of trials.
+\end{itemize}
+Chapter~\ref{ch:method} turns the first two risks into an explicit three-protocol experiment, and the third into the freezing of hyper-parameters and a full disclosure of every comparison made.
+
+\subsection{Market Regimes}
+Financial markets alternate between calm and turbulent phases. A regime is a persistent state of the market summarised here by recent return and volatility. Regime information can enter a model as an extra input, as a conditioning signal for fusion weights, or as a stratification variable for evaluation. This report uses regimes in the first and third ways: as an input (model M3) and as a way to ask whether news value differs between calm and turbulent days.
+
+\subsection{Dataset: NIFTY}
+The NIFTY dataset of Saqur et al.\ \cite{saqur2024} pairs daily market context for the SPY exchange-traded fund with curated news headlines and a Rise/Neutral/Fall label, and provides an official chronological train/validation/test split. Because it is public, it allows the experiments here to be reproduced exactly.
+
+\subsection{Positioning}
+\begin{keybox}
+Prior work shows that financial news and multimodal models can help market prediction, while financial-ML research separately documents backtest overfitting and inconsistent evaluation. This report examines, within one controlled pipeline on a public benchmark, how much reported performance changes with the evaluation protocol, and whether the incremental value of news differs across volatility regimes, including the February--April 2020 stress period.
+\end{keybox}
+This is a statement of what this study does, not a claim to be the first to examine these questions; the reference list is short and a broader search may find closer work.

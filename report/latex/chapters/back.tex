@@ -1,0 +1,48 @@
+\newpage
+\appendix
+\section{Transparency Statement}\label{app:transparency}
+\begin{itemize}
+\item The primary models (M0--M5) and the three protocols were specified before running the experiments. The random-guess baseline M0r and the sentiment model M6 were added after a pilot run showed that the news-only and price-plus-embedding models overfit; results for both are reported regardless of outcome.
+\item The number of seeds was increased from 3 to 10 after observing that seed-to-seed variation was as large as the effects of interest. In the 3-seed pilot, M6 appeared stronger (about 0.503); with 10 seeds the value was 0.482 and the difference to M1 was not significant, so the 10-seed result is the one reported. No hyper-parameters were changed.
+\item Price inputs were converted to scale-free features before any model was run, because raw price levels drift over the sample.
+\item Up to 50 headlines per day were sampled at random (fixed seed) to bound compute and reduce volume differences across periods.
+\item Fifteen early rows without 20 days of history were excluded so that all models use the same samples.
+\item The label alignment (next-trading-day close-to-close return) was verified empirically on 2{,}110 rows.
+\item About 24 pairwise comparisons were examined (4 comparisons $\times$ 6 groups).
+\item M7 and the $\mathrm{LAG}=1$ option exist in the code but were not run on real data.
+\item \textbf{Use of tools.} AI-based assistants were used during the project for planning, code drafting and wording suggestions. All experiments were run by the author, and the reported numbers are those produced by the executed notebook.
+\end{itemize}
+
+\section{Reproducibility}
+The code, executed notebook, raw cell outputs and figure-generating scripts are in the project repository
+(\texttt{github.com/Hamza-Faarooq/btp-regime-aware-multimodal-forecasting}). The pipeline is run in this order: \texttt{01\_data.py} (download, daily series, audit), \texttt{02\_regimes.py}, \texttt{03\_finbert.py}, \texttt{04\_models.py} (270 runs), \texttt{05\_analysis.py}, and \texttt{06\_diagrams.py}. All random seeds are fixed (model seeds 0--9, headline sampling seed 1234, $k$-means seed 0, bootstrap seeds fixed in the analysis script). The scripts were run cell by cell in Google Colab; the command-line path was tested end-to-end on a synthetic mock dataset.
+
+\section*{List of Important Symbols}
+\addcontentsline{toc}{section}{List of Important Symbols}
+\begin{itemize}
+\item $t$ - Date of a dataset row; the label concerns the move from $t$ to the next trading day
+\item $y_t\in\{\text{Fall},\text{Neutral},\text{Rise}\}$ - Class label
+\item $X_t\in\mathbb{R}^{10\times 12}$ - Price-feature window ending at $t$
+\item $n_t$ - News representation of day $t$ (768-d embedding or 3 sentiment scores)
+\item $g_t$ - Volatility regime of day $t$ (Low-, Mid-, High-vol)
+\item $\mathrm{ret}_{20}$, $\sigma_{20}$ - 20-day return and 20-day standard deviation of daily returns
+\item $\Fone$ - Harmonic mean of precision and recall; Macro-$\Fone$ is its mean over classes
+\item P1, P2, P3 - Evaluation protocols (random, chronological, strict chronological)
+\item M0--M7 - Models (Table~\ref{tab:models}; M7 is implemented but not evaluated)
+\item $z_{\text{price}}, z_{\text{news}}, e_{\text{regime}}$ - Branch embeddings of the network
+\item $\mathrm{LAG}$ - Offset between the label date and the last day of the price window
+\end{itemize}
+
+\begin{thebibliography}{99}\addcontentsline{toc}{section}{References}
+\bibitem{araci2019} \textbf{Araci, D.} (2019). \emph{FinBERT: Financial Sentiment Analysis with Pre-trained Language Models}. arXiv:1908.10063.
+\bibitem{bailey2014} \textbf{Bailey, D. H., Borwein, J. M., Lopez de Prado, M., \& Zhu, Q. J.} (2014). Pseudo-Mathematics and Financial Charlatanism: The Effects of Backtest Overfitting on Out-of-Sample Performance. \emph{Notices of the American Mathematical Society}, 61(5), 458--471.
+\bibitem{bailey2015} \textbf{Bailey, D. H., Borwein, J. M., Lopez de Prado, M., \& Zhu, Q. J.} (2015). The Probability of Backtest Overfitting. \emph{Journal of Computational Finance}. SSRN 2326253.
+\bibitem{gu2024} \textbf{Gu, W., et al.} (2024). \emph{Predicting Stock Prices with FinBERT-LSTM: Integrating News Sentiment Analysis}. arXiv:2407.16150.
+\bibitem{halder2022} \textbf{Halder, S.} (2022). \emph{FinBERT-LSTM: Deep Learning based Stock Price Prediction using News Sentiment Analysis}. arXiv:2211.07392.
+\bibitem{hochreiter1997} \textbf{Hochreiter, S., \& Schmidhuber, J.} (1997). Long Short-Term Memory. \emph{Neural Computation}, 9(8), 1735--1780.
+\bibitem{karadas2025} \textbf{Karada\c{s}, E., Eravci, B., \& Ozbayoglu, A. M.} (2025). \emph{Multimodal Stock Price Prediction}. arXiv:2502.05186.
+\bibitem{kraus2017} \textbf{Kraus, M., \& Feuerriegel, S.} (2017). Decision support from financial disclosures with deep neural networks and transfer learning. \emph{Decision Support Systems}, 104, 38--48. arXiv:1710.03954.
+\bibitem{saqur2024} \textbf{Saqur, R., Kato, K., Vinden, N., \& Rudzicz, F.} (2024). \emph{NIFTY Financial News Headlines Dataset}. arXiv:2405.09747.
+\bibitem{wang2026} \textbf{Wang et al.} (2026). FusionLSTM-CNF: a confidence-calibrated multi-modal late fusion framework for robust stock movement prediction under uncertainty. \emph{Scientific Reports}, 16, 17494. doi:10.1038/s41598-026-43381-3.
+\bibitem{zong2024} \textbf{Zong et al.} (2024). \emph{Stock Movement Prediction with Multimodal Stable Fusion via Gated Cross-Attention Mechanism}. arXiv:2406.06594.
+\end{thebibliography}

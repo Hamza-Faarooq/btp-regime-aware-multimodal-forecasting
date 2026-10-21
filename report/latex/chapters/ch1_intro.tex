@@ -1,0 +1,41 @@
+\section{Introduction}
+Predicting the direction of financial markets is one of the most studied applications of machine learning, and it is also one of the easiest in which to be misled. Reported accuracies depend not only on the model but on a long list of experimental choices: how the data are split, which statistics are used to scale the inputs, which regime of the market the test period happens to cover, and how many configurations were tried before the best was reported. At the same time, many recent studies add unstructured information, mainly news text encoded by pre-trained language models, to price-based networks and report improvements. Whether those improvements survive a strict evaluation, and whether they are uniform across calm and turbulent markets, is a more delicate question than a single headline number can answer.
+
+This report treats the \textbf{evaluation protocol} as an experimental variable. Using one public benchmark, one small and fixed network family and ten random seeds, it measures (i) how much the apparent performance of the \emph{same} models changes when the evaluation becomes stricter, and (ii) whether financial news adds information beyond lagged prices, overall, within volatility regimes, and during the COVID-19 market stress of early 2020.
+
+\begin{defbox}
+\textbf{One-sentence summary.} On the NIFTY benchmark with strict chronological evaluation, a small price-only LSTM was the model to beat: FinBERT embeddings reduced out-of-sample Macro-F1, a three-number sentiment summary gave at most a small and statistically unreliable gain, and loosening the evaluation protocol did not systematically inflate scores.
+\end{defbox}
+
+\subsection{Motivation}
+Three observations motivate the study.
+\begin{itemize}
+\item \textbf{Comparisons across papers are fragile.} Studies differ in assets, periods, label definitions, splits, metrics and preprocessing, so numbers are rarely comparable. Kraus and Feuerriegel \cite{kraus2017} make this point explicitly for text-based stock-reaction prediction.
+\item \textbf{A single historical backtest is weak evidence.} Bailey et al.\ \cite{bailey2014,bailey2015} show formally that trying many configurations on one historical sample makes a strong in-sample result likely even when there is no skill. The practical remedy is to freeze the design in advance, report everything that was run and use strict out-of-time evaluation.
+\item \textbf{The value of news may depend on the market state.} It is plausible, though not guaranteed, that headlines matter more when markets are stressed. This requires an explicit notion of market regime and a regime-wise evaluation.
+\end{itemize}
+
+\subsection{Research Questions}
+\begin{keybox}
+\textbf{RQ1 (evaluation sensitivity).} How much do reported results change when the same models are evaluated under increasingly strict temporal protocols (random split $\rightarrow$ chronological split $\rightarrow$ chronological split with train-only preprocessing)?\\[4pt]
+\textbf{RQ2 (incremental value of news).} Does financial news provide predictive information beyond historical price data, and does its contribution vary across volatility regimes and during the February--April 2020 stress window?
+\end{keybox}
+Three testable hypotheses guide the analysis:
+\begin{enumerate}[label=\textbf{H\arabic*:}]
+\item Looser protocols overstate performance relative to the strict protocol.
+\item The incremental value of news differs across market regimes.
+\item An explicit regime input improves a price-plus-news model.
+\end{enumerate}
+
+\subsection{Contributions and Scope}
+\begin{enumerate}
+\item \textbf{A data audit of the NIFTY benchmark} (Chapter~\ref{ch:data}): the label is shown empirically to be the next trading day's close-to-close return; a daily price series of 2{,}695 trading days is recovered from overlapping contexts; the class mix and headline volume are shown to shift across the official splits.
+\item \textbf{A controlled model family} (Chapter~\ref{ch:method}) in which each information source (price, news embedding, news sentiment, regime) can be switched on or off while architecture, optimiser and hyper-parameters stay fixed, together with a majority baseline and a uniform random-guess floor.
+\item \textbf{A three-protocol leakage audit} with seed-level bootstrap intervals (Section~\ref{sec:protocol-results}).
+\item \textbf{A regime-wise and stress-window analysis of news value} with row-level bootstrap intervals (Sections~\ref{sec:regime-results}--\ref{sec:stress}).
+\item \textbf{A transparent record} of every post-hoc addition and of how many comparisons were examined (Appendix~\ref{app:transparency}).
+\end{enumerate}
+The study is deliberately small in architecture. It is \emph{not} an attempt to build a profitable trading strategy, it does not model transaction costs, and it claims nothing about causality or deployability.
+
+\subsection{Report Organisation}
+Chapter~\ref{ch:related} reviews background and related work. Chapter~\ref{ch:data} describes and audits the dataset. Chapter~\ref{ch:method} specifies features, regimes, models, training, protocols and statistics. Chapter~\ref{ch:results} reports results. Chapter~\ref{ch:discussion} interprets them and lists limitations, and Chapter~\ref{ch:conclusion} concludes. The appendices give the transparency statement and reproducibility details.

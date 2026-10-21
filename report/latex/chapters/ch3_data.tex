@@ -1,0 +1,75 @@
+\newpage
+\section{Data and Data Audit}\label{ch:data}
+\subsection{The NIFTY Benchmark}
+The experiments use the NIFTY dataset \cite{saqur2024} (Hugging Face identifier \texttt{raeidsaqur/NIFTY}). The market target is the SPY exchange-traded fund. The dataset contains 2{,}111 rows with the official chronological split of Table~\ref{tab:splits}. Each row provides a text prompt containing a short history of daily market statistics (open, high, low, close, adjusted close, volume, percentage change and several technical indicators), a block of news headlines, a categorical label (Fall, Neutral or Rise) and a numeric \texttt{pct\_change}. The label rule is: Fall if the change is below $-0.5\%$, Rise if it is above $+0.5\%$, and Neutral otherwise.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+Split & Rows (raw) & Rows (used) & First date & Last date\\
+\midrule
+Train & 1{,}477 & 1{,}462 & 2010-01-06 & 2017-06-27\\
+Validation & 317 & 317 & 2017-06-28 & 2019-02-12\\
+Test & 317 & 317 & 2019-02-13 & 2020-09-21\\
+\midrule
+Total & 2{,}111 & 2{,}096 & & \\
+\bottomrule
+\end{tabular}
+\caption{Official NIFTY splits. Fifteen early training rows are dropped because the 20-day regime features need 20 days of history (Section~\ref{sec:windows}).}\label{tab:splits}
+\end{table}
+\figpage{fig_dataset_timeline.png}{\textwidth}{Official chronological split and the stress-period case study window.}
+
+\subsection{The Label Is the Next Trading Day's Return}
+A first check established what the label actually measures, because the timing convention determines what may legitimately be used as an input. For each row, the \texttt{pct\_change} target was compared with several candidate returns computed from the market data embedded in the contexts. The result on 2{,}110 rows with a defined next day was unambiguous:
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Candidate series & Share within $10^{-3}$ of the target\\
+\midrule
+Next-day close-to-close return & \textbf{1.000}\\
+Same-day close-to-close return & 0.066\\
+Previous-day close-to-close return & 0.081\\
+Same-day open-to-close return & 0.087\\
+Context \texttt{pct\_change} of the same date & 0.064\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{defbox}
+\textbf{Timing convention.} The label of a row dated $t$ is the close-to-close return from day $t$ to the next trading day $t{+}1$. A price window may therefore end at day $t$ (the most recent information available before the predicted move). This is called $\mathrm{LAG}=0$ in the code. The benchmark's own prompt uses a window ending at $t{-}1$; this alternative ($\mathrm{LAG}=1$) is implemented as a robustness option but was not run for this report.
+\end{defbox}
+Ten of the 2{,}111 rows lie exactly on the $\pm0.5\%$ boundary and disagree with the label rule only through rounding (for example 2012-06-14 and 2017-11-14); they were kept.
+
+\subsection{Recovering a Daily Price Series}\label{sec:windows}
+The dataset is not a daily series: target dates are separated by one to four business days (1{,}544 consecutive pairs, 469 gaps of two, 77 of three and 20 of four), and there are 2{,}111 rows against roughly 2{,}689 trading days in the same range. However, every row carries several trading days of market context (context lengths 5--8 days for almost all rows), and consecutive contexts overlap. Merging all contexts yields \textbf{2{,}695 distinct trading days} from 2010-01-05 to 2020-09-18. Where the same day appears in several contexts the values agree exactly (maximum disagreement in close: 0.0). About 15 expected trading days are absent from the recovered series (for example some Good Fridays and 2012-10-29/30 and 2018-12-05); they are not interpolated.
+
+Price windows are then built from this daily series, so a ``10-day'' window means ten consecutive \emph{trading} days (the maximum calendar span of a window is 18 days), not ten rows of the sparse dataset. A window for a row dated $t$ ends at the last recovered trading day not after $t$. Because 20 days of history are needed for the regime features, the 15 earliest rows are dropped, leaving 1{,}462, 317 and 317 rows (Table~\ref{tab:splits}).
+
+\begin{warnbox}
+\textbf{Leakage guards.} The code asserts for every window and for every regime feature that its last day is not after the row's date, and that all P2/P3 splits are chronological. A further check confirms that the first column of each window equals the raw close-to-close return stored by the first processing step.
+\end{warnbox}
+
+\subsection{Class Balance Shifts Across Splits}
+Table~\ref{tab:classes} shows that the label mix is not stable. The Neutral share is 53.5\% in training but 45.1\% in the test period, which contains the 2020 shock.
+\begin{table}[H]
+\centering
+\begin{tabular}{lccc}
+\toprule
+Split & Fall & Neutral & Rise\\
+\midrule
+Train & 0.205 & 0.535 & 0.260\\
+Validation & 0.167 & 0.596 & 0.237\\
+Test & 0.230 & 0.451 & 0.319\\
+\bottomrule
+\end{tabular}
+\caption{Label shares by official split.}\label{tab:classes}
+\end{table}
+Always predicting the training majority class (Neutral) therefore reaches an accuracy of 0.451 on the test set but a Macro-F1 of only $0.207$, because two of the three classes get an F1 of zero. For this reason Macro-F1 is the primary metric and a \emph{uniform random guesser} (Macro-F1 $\approx0.333$) is used as the meaningful floor.
+
+\subsection{News Headlines}
+Each row carries a block of daily headlines (mean about 207 headlines per row in the raw text, with the number depending strongly on the era). The raw volume falls sharply across the splits: the mean number of headlines per day is about 277 in the training period (maximum 1{,}627), 54 in validation and 26 in test. To bound compute and reduce this imbalance, at most 50 headlines per day are sampled at random (fixed seed 1234) before encoding; after this cap the mean is 49.0 (train), 46.4 (validation) and 26.2 (test) headlines per day. Across all splits 94{,}652 headlines were embedded and no day was left without a headline.
+
+Mean FinBERT sentiment (probability of positive minus probability of negative) also moves across periods: $-0.068$ in training, $-0.095$ in validation and $-0.184$ in test, and in March 2020 alone it falls to $-0.319$ against $-0.176$ for the rest of the test set. As a diagnostic of how much information the daily embedding carries, the mean cosine similarity between embeddings of consecutive days is 0.963, against 0.951 for random pairs of days, so the mean-pooled embedding varies only slightly from day to day. These shifts in news volume and tone are a confound for any news result and are returned to in Chapter~\ref{ch:discussion}.
+
+\subsection{Exploratory Overview}
+\figpage{eda_overview.png}{\textwidth}{Exploratory overview of the benchmark (price history, label mix and news volume by split).}

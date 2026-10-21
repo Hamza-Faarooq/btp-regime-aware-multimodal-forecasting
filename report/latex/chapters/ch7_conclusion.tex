@@ -1,0 +1,19 @@
+\newpage
+\section{Conclusion and Future Work}\label{ch:conclusion}
+On the NIFTY benchmark, with strict chronological evaluation, a small price-only LSTM was the model to beat. FinBERT embeddings of daily headlines reduced out-of-sample Macro-F1; a low-dimensional sentiment summary gave at most a small and statistically unreliable gain; and an explicit market-regime input added little because the price window already encodes recent volatility. No evidence was found that news is more valuable during the 2020 stress period, although the sample is small. Moving from a strict to a looser evaluation protocol did not systematically inflate results, except for a model relying solely on a persistent regime label.
+
+\begin{keybox}
+\textbf{Take-aways.}
+(i) Evaluate against a strong price-only baseline and a random-guess floor; a majority baseline is a misleading Macro-F1 floor.
+(ii) Fit all preprocessing and regimes on training data only.
+(iii) Expect high-dimensional text embeddings to overfit small samples, and prefer compact summaries or stronger regularisation.
+(iv) Report every model and comparison run, and treat isolated significant intervals as hypotheses.
+\end{keybox}
+\subsection{Future Work}
+\begin{itemize}
+\item \textbf{Gated fusion (M7).} A regime-conditioned gate between the price and news embeddings is implemented but not evaluated; it would test whether news can be made useful conditionally.
+\item \textbf{Lagged window ($\mathrm{LAG}=1$).} Re-running the pipeline with windows ending one day earlier, as in the benchmark's own prompt, would show how sensitive the conclusions are to the timing convention.
+\item \textbf{Stronger regularisation of the news branch,} e.g.\ low-rank projections, PCA, or weight decay and dropout search on validation data only.
+\item \textbf{More assets and periods,} and a block bootstrap that respects autocorrelation.
+\item \textbf{Publication-time stamps for headlines} to remove the main timing uncertainty.
+\end{itemize}
