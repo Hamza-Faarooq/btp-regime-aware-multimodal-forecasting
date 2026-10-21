@@ -1,0 +1,25 @@
+group,n,comparison,est,lo,hi
+All test,317,M2-M1 (embedding news gain),-0.050,-0.087,-0.012
+All test,317,M6-M1 (sentiment news gain),0.016,-0.017,0.049
+All test,317,M3-M2 (regime effect),0.017,-0.002,0.038
+All test,317,M3-M1 (news+regime vs price),-0.033,-0.069,0.001
+Regime: Low-vol,125,M2-M1 (embedding news gain),-0.023,-0.079,0.031
+Regime: Low-vol,125,M6-M1 (sentiment news gain),0.006,-0.041,0.058
+Regime: Low-vol,125,M3-M2 (regime effect),0.021,-0.002,0.043
+Regime: Low-vol,125,M3-M1 (news+regime vs price),-0.002,-0.067,0.065
+Regime: Mid-vol,113,M2-M1 (embedding news gain),-0.069,-0.147,0.003
+Regime: Mid-vol,113,M6-M1 (sentiment news gain),0.054,0.004,0.107
+Regime: Mid-vol,113,M3-M2 (regime effect),0.021,-0.011,0.051
+Regime: Mid-vol,113,M3-M1 (news+regime vs price),-0.049,-0.116,0.022
+Regime: High-vol,79,M2-M1 (embedding news gain),0.005,-0.062,0.074
+Regime: High-vol,79,M6-M1 (sentiment news gain),0.020,-0.041,0.081
+Regime: High-vol,79,M3-M2 (regime effect),-0.043,-0.101,0.011
+Regime: High-vol,79,M3-M1 (news+regime vs price),-0.038,-0.102,0.021
+Stress window 2020-02-01..2020-04-30,50,M2-M1 (embedding news gain),-0.024,-0.115,0.056
+Stress window 2020-02-01..2020-04-30,50,M6-M1 (sentiment news gain),-0.001,-0.079,0.072
+Stress window 2020-02-01..2020-04-30,50,M3-M2 (regime effect),0.002,-0.044,0.046
+Stress window 2020-02-01..2020-04-30,50,M3-M1 (news+regime vs price),-0.022,-0.11,0.061
+Outside stress window,267,M2-M1 (embedding news gain),-0.060,-0.097,-0.017
+Outside stress window,267,M6-M1 (sentiment news gain),0.016,-0.021,0.05
+Outside stress window,267,M3-M2 (regime effect),0.024,0.002,0.047
+Outside stress window,267,M3-M1 (news+regime vs price),-0.036,-0.073,0.006

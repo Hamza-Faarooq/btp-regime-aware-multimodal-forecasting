@@ -187,3 +187,7 @@ saved regimes.parquet, stats, transition matrix, models
 * The high-dimensional news embedding (M2) is worse than price only (M1): -0.050 [-0.087, -0.012], while its training score is far higher (0.554 vs 0.477). That is overfitting, not a bug.
 * The compact sentiment model M6 is slightly higher than M1 on average, but M6-M1 = +0.016 [-0.017, 0.049] includes zero. M6 was added after the first results were seen (see README, "Transparency").
 * Protocol gaps are small and model-dependent; only M5 (positive) and M6 (negative) have intervals excluding zero. The study therefore does **not** find that loose protocols uniformly inflate scores on this dataset.
+
+## Machine-readable tables
+
+`audit_gaps.csv`, `p3_levels_by_group.csv` and `p3_diffs_by_group.csv` in this folder were **parsed from the printed notebook output** (`results/logs/`), so they hold exactly the rounded values shown above. The original unrounded CSVs, per-seed metrics and prediction files live in the author's Google Drive `btp/results/`.
