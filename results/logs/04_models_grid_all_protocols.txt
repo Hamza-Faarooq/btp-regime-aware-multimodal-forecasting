@@ -1,0 +1,300 @@
+P1 M0 seed0: test macro-F1 0.223 acc 0.502  (0s)
+P1 M0 seed1: test macro-F1 0.230 acc 0.527  (0s)
+P1 M0 seed2: test macro-F1 0.234 acc 0.543  (0s)
+P1 M0 seed3: test macro-F1 0.224 acc 0.505  (0s)
+P1 M0 seed4: test macro-F1 0.232 acc 0.533  (0s)
+P1 M0 seed5: test macro-F1 0.222 acc 0.498  (0s)
+P1 M0 seed6: test macro-F1 0.225 acc 0.508  (0s)
+P1 M0 seed7: test macro-F1 0.234 acc 0.543  (0s)
+P1 M0 seed8: test macro-F1 0.239 acc 0.558  (0s)
+P1 M0 seed9: test macro-F1 0.222 acc 0.498  (1s)
+P1 M0r seed0: test macro-F1 0.285 acc 0.303  (1s)
+P1 M0r seed1: test macro-F1 0.314 acc 0.325  (1s)
+P1 M0r seed2: test macro-F1 0.292 acc 0.309  (1s)
+P1 M0r seed3: test macro-F1 0.315 acc 0.322  (1s)
+P1 M0r seed4: test macro-F1 0.321 acc 0.331  (1s)
+P1 M0r seed5: test macro-F1 0.306 acc 0.319  (1s)
+P1 M0r seed6: test macro-F1 0.346 acc 0.356  (1s)
+P1 M0r seed7: test macro-F1 0.315 acc 0.350  (1s)
+P1 M0r seed8: test macro-F1 0.327 acc 0.344  (1s)
+P1 M0r seed9: test macro-F1 0.328 acc 0.334  (1s)
+P1 M1 seed0: test macro-F1 0.457 acc 0.502  (6s)
+P1 M1 seed1: test macro-F1 0.428 acc 0.508  (10s)
+P1 M1 seed2: test macro-F1 0.467 acc 0.530  (12s)
+P1 M1 seed3: test macro-F1 0.460 acc 0.517  (16s)
+P1 M1 seed4: test macro-F1 0.471 acc 0.549  (18s)
+P1 M1 seed5: test macro-F1 0.481 acc 0.536  (21s)
+P1 M1 seed6: test macro-F1 0.414 acc 0.457  (24s)
+P1 M1 seed7: test macro-F1 0.408 acc 0.530  (25s)
+P1 M1 seed8: test macro-F1 0.379 acc 0.476  (27s)
+P1 M1 seed9: test macro-F1 0.414 acc 0.486  (28s)
+P1 M2 seed0: test macro-F1 0.408 acc 0.473  (29s)
+P1 M2 seed1: test macro-F1 0.404 acc 0.445  (30s)
+P1 M2 seed2: test macro-F1 0.436 acc 0.514  (32s)
+P1 M2 seed3: test macro-F1 0.429 acc 0.492  (34s)
+P1 M2 seed4: test macro-F1 0.433 acc 0.508  (36s)
+P1 M2 seed5: test macro-F1 0.399 acc 0.464  (38s)
+P1 M2 seed6: test macro-F1 0.431 acc 0.483  (39s)
+P1 M2 seed7: test macro-F1 0.438 acc 0.536  (40s)
+P1 M2 seed8: test macro-F1 0.420 acc 0.467  (43s)
+P1 M2 seed9: test macro-F1 0.428 acc 0.464  (45s)
+P1 M3 seed0: test macro-F1 0.415 acc 0.486  (46s)
+P1 M3 seed1: test macro-F1 0.433 acc 0.514  (48s)
+P1 M3 seed2: test macro-F1 0.428 acc 0.489  (50s)
+P1 M3 seed3: test macro-F1 0.417 acc 0.489  (52s)
+P1 M3 seed4: test macro-F1 0.410 acc 0.508  (53s)
+P1 M3 seed5: test macro-F1 0.427 acc 0.483  (55s)
+P1 M3 seed6: test macro-F1 0.458 acc 0.517  (56s)
+P1 M3 seed7: test macro-F1 0.417 acc 0.508  (58s)
+P1 M3 seed8: test macro-F1 0.376 acc 0.457  (59s)
+P1 M3 seed9: test macro-F1 0.426 acc 0.483  (60s)
+P1 M4 seed0: test macro-F1 0.382 acc 0.407  (62s)
+P1 M4 seed1: test macro-F1 0.360 acc 0.391  (63s)
+P1 M4 seed2: test macro-F1 0.378 acc 0.413  (64s)
+P1 M4 seed3: test macro-F1 0.359 acc 0.385  (65s)
+P1 M4 seed4: test macro-F1 0.353 acc 0.385  (66s)
+P1 M4 seed5: test macro-F1 0.358 acc 0.407  (67s)
+P1 M4 seed6: test macro-F1 0.354 acc 0.394  (67s)
+P1 M4 seed7: test macro-F1 0.363 acc 0.448  (68s)
+P1 M4 seed8: test macro-F1 0.367 acc 0.420  (69s)
+P1 M4 seed9: test macro-F1 0.351 acc 0.375  (69s)
+P1 M5 seed0: test macro-F1 0.419 acc 0.470  (69s)
+P1 M5 seed1: test macro-F1 0.398 acc 0.451  (70s)
+P1 M5 seed2: test macro-F1 0.405 acc 0.461  (71s)
+P1 M5 seed3: test macro-F1 0.440 acc 0.508  (71s)
+P1 M5 seed4: test macro-F1 0.380 acc 0.438  (72s)
+P1 M5 seed5: test macro-F1 0.422 acc 0.489  (72s)
+P1 M5 seed6: test macro-F1 0.372 acc 0.435  (72s)
+P1 M5 seed7: test macro-F1 0.394 acc 0.451  (73s)
+P1 M5 seed8: test macro-F1 0.395 acc 0.483  (73s)
+P1 M5 seed9: test macro-F1 0.372 acc 0.438  (74s)
+P1 M6 seed0: test macro-F1 0.403 acc 0.467  (75s)
+P1 M6 seed1: test macro-F1 0.406 acc 0.486  (78s)
+P1 M6 seed2: test macro-F1 0.497 acc 0.565  (81s)
+P1 M6 seed3: test macro-F1 0.453 acc 0.514  (82s)
+P1 M6 seed4: test macro-F1 0.397 acc 0.448  (83s)
+P1 M6 seed5: test macro-F1 0.476 acc 0.527  (85s)
+P1 M6 seed6: test macro-F1 0.428 acc 0.495  (86s)
+P1 M6 seed7: test macro-F1 0.437 acc 0.514  (88s)
+P1 M6 seed8: test macro-F1 0.418 acc 0.492  (90s)
+P1 M6 seed9: test macro-F1 0.395 acc 0.467  (91s)
+P2 M0 seed0: test macro-F1 0.207 acc 0.451  (91s)
+P2 M0 seed1: test macro-F1 0.207 acc 0.451  (91s)
+P2 M0 seed2: test macro-F1 0.207 acc 0.451  (91s)
+P2 M0 seed3: test macro-F1 0.207 acc 0.451  (91s)
+P2 M0 seed4: test macro-F1 0.207 acc 0.451  (91s)
+P2 M0 seed5: test macro-F1 0.207 acc 0.451  (91s)
+P2 M0 seed6: test macro-F1 0.207 acc 0.451  (91s)
+P2 M0 seed7: test macro-F1 0.207 acc 0.451  (91s)
+P2 M0 seed8: test macro-F1 0.207 acc 0.451  (91s)
+P2 M0 seed9: test macro-F1 0.207 acc 0.451  (92s)
+P2 M0r seed0: test macro-F1 0.325 acc 0.338  (92s)
+P2 M0r seed1: test macro-F1 0.325 acc 0.331  (92s)
+P2 M0r seed2: test macro-F1 0.319 acc 0.328  (92s)
+P2 M0r seed3: test macro-F1 0.341 acc 0.344  (92s)
+P2 M0r seed4: test macro-F1 0.315 acc 0.325  (92s)
+P2 M0r seed5: test macro-F1 0.320 acc 0.322  (92s)
+P2 M0r seed6: test macro-F1 0.319 acc 0.325  (92s)
+P2 M0r seed7: test macro-F1 0.380 acc 0.385  (92s)
+P2 M0r seed8: test macro-F1 0.336 acc 0.344  (92s)
+P2 M0r seed9: test macro-F1 0.349 acc 0.353  (92s)
+P2 M1 seed0: test macro-F1 0.421 acc 0.530  (94s)
+P2 M1 seed1: test macro-F1 0.495 acc 0.530  (97s)
+P2 M1 seed2: test macro-F1 0.408 acc 0.511  (98s)
+P2 M1 seed3: test macro-F1 0.480 acc 0.508  (101s)
+P2 M1 seed4: test macro-F1 0.499 acc 0.543  (106s)
+P2 M1 seed5: test macro-F1 0.483 acc 0.524  (111s)
+P2 M1 seed6: test macro-F1 0.469 acc 0.539  (113s)
+P2 M1 seed7: test macro-F1 0.422 acc 0.505  (114s)
+P2 M1 seed8: test macro-F1 0.433 acc 0.505  (114s)
+P2 M1 seed9: test macro-F1 0.495 acc 0.539  (118s)
+P2 M2 seed0: test macro-F1 0.403 acc 0.461  (120s)
+P2 M2 seed1: test macro-F1 0.396 acc 0.505  (122s)
+P2 M2 seed2: test macro-F1 0.469 acc 0.539  (124s)
+P2 M2 seed3: test macro-F1 0.419 acc 0.476  (126s)
+P2 M2 seed4: test macro-F1 0.403 acc 0.495  (127s)
+P2 M2 seed5: test macro-F1 0.444 acc 0.498  (129s)
+P2 M2 seed6: test macro-F1 0.414 acc 0.432  (131s)
+P2 M2 seed7: test macro-F1 0.458 acc 0.549  (132s)
+P2 M2 seed8: test macro-F1 0.432 acc 0.511  (133s)
+P2 M2 seed9: test macro-F1 0.439 acc 0.517  (135s)
+P2 M3 seed0: test macro-F1 0.429 acc 0.517  (137s)
+P2 M3 seed1: test macro-F1 0.420 acc 0.464  (139s)
+P2 M3 seed2: test macro-F1 0.441 acc 0.498  (141s)
+P2 M3 seed3: test macro-F1 0.412 acc 0.486  (142s)
+P2 M3 seed4: test macro-F1 0.448 acc 0.486  (144s)
+P2 M3 seed5: test macro-F1 0.451 acc 0.511  (145s)
+P2 M3 seed6: test macro-F1 0.470 acc 0.498  (147s)
+P2 M3 seed7: test macro-F1 0.420 acc 0.517  (149s)
+P2 M3 seed8: test macro-F1 0.456 acc 0.495  (152s)
+P2 M3 seed9: test macro-F1 0.467 acc 0.527  (154s)
+P2 M4 seed0: test macro-F1 0.431 acc 0.457  (155s)
+P2 M4 seed1: test macro-F1 0.309 acc 0.388  (156s)
+P2 M4 seed2: test macro-F1 0.411 acc 0.420  (157s)
+P2 M4 seed3: test macro-F1 0.394 acc 0.413  (158s)
+P2 M4 seed4: test macro-F1 0.333 acc 0.372  (159s)
+P2 M4 seed5: test macro-F1 0.317 acc 0.347  (160s)
+P2 M4 seed6: test macro-F1 0.363 acc 0.372  (161s)
+P2 M4 seed7: test macro-F1 0.375 acc 0.410  (162s)
+P2 M4 seed8: test macro-F1 0.387 acc 0.397  (163s)
+P2 M4 seed9: test macro-F1 0.370 acc 0.404  (163s)
+P2 M5 seed0: test macro-F1 0.348 acc 0.461  (164s)
+P2 M5 seed1: test macro-F1 0.405 acc 0.429  (164s)
+P2 M5 seed2: test macro-F1 0.405 acc 0.429  (165s)
+P2 M5 seed3: test macro-F1 0.348 acc 0.461  (166s)
+P2 M5 seed4: test macro-F1 0.405 acc 0.429  (166s)
+P2 M5 seed5: test macro-F1 0.405 acc 0.429  (167s)
+P2 M5 seed6: test macro-F1 0.405 acc 0.429  (167s)
+P2 M5 seed7: test macro-F1 0.348 acc 0.461  (168s)
+P2 M5 seed8: test macro-F1 0.405 acc 0.429  (168s)
+P2 M5 seed9: test macro-F1 0.348 acc 0.461  (169s)
+P2 M6 seed0: test macro-F1 0.474 acc 0.536  (170s)
+P2 M6 seed1: test macro-F1 0.359 acc 0.461  (171s)
+P2 M6 seed2: test macro-F1 0.497 acc 0.543  (174s)
+P2 M6 seed3: test macro-F1 0.390 acc 0.473  (175s)
+P2 M6 seed4: test macro-F1 0.495 acc 0.539  (176s)
+P2 M6 seed5: test macro-F1 0.445 acc 0.514  (178s)
+P2 M6 seed6: test macro-F1 0.491 acc 0.555  (181s)
+P2 M6 seed7: test macro-F1 0.430 acc 0.489  (183s)
+P2 M6 seed8: test macro-F1 0.399 acc 0.492  (184s)
+P2 M6 seed9: test macro-F1 0.497 acc 0.543  (187s)
+P3 M0 seed0: test macro-F1 0.207 acc 0.451  (187s)
+P3 M0 seed1: test macro-F1 0.207 acc 0.451  (187s)
+P3 M0 seed2: test macro-F1 0.207 acc 0.451  (187s)
+P3 M0 seed3: test macro-F1 0.207 acc 0.451  (187s)
+P3 M0 seed4: test macro-F1 0.207 acc 0.451  (187s)
+P3 M0 seed5: test macro-F1 0.207 acc 0.451  (187s)
+P3 M0 seed6: test macro-F1 0.207 acc 0.451  (188s)
+P3 M0 seed7: test macro-F1 0.207 acc 0.451  (188s)
+P3 M0 seed8: test macro-F1 0.207 acc 0.451  (188s)
+P3 M0 seed9: test macro-F1 0.207 acc 0.451  (188s)
+P3 M0r seed0: test macro-F1 0.325 acc 0.338  (188s)
+P3 M0r seed1: test macro-F1 0.325 acc 0.331  (188s)
+P3 M0r seed2: test macro-F1 0.319 acc 0.328  (188s)
+P3 M0r seed3: test macro-F1 0.341 acc 0.344  (188s)
+P3 M0r seed4: test macro-F1 0.315 acc 0.325  (188s)
+P3 M0r seed5: test macro-F1 0.320 acc 0.322  (188s)
+P3 M0r seed6: test macro-F1 0.319 acc 0.325  (188s)
+P3 M0r seed7: test macro-F1 0.380 acc 0.385  (188s)
+P3 M0r seed8: test macro-F1 0.336 acc 0.344  (188s)
+P3 M0r seed9: test macro-F1 0.349 acc 0.353  (188s)
+P3 M1 seed0: test macro-F1 0.465 acc 0.552  (190s)
+P3 M1 seed1: test macro-F1 0.488 acc 0.533  (192s)
+P3 M1 seed2: test macro-F1 0.414 acc 0.517  (193s)
+P3 M1 seed3: test macro-F1 0.491 acc 0.536  (197s)
+P3 M1 seed4: test macro-F1 0.510 acc 0.546  (201s)
+P3 M1 seed5: test macro-F1 0.494 acc 0.533  (204s)
+P3 M1 seed6: test macro-F1 0.455 acc 0.536  (206s)
+P3 M1 seed7: test macro-F1 0.407 acc 0.498  (207s)
+P3 M1 seed8: test macro-F1 0.439 acc 0.511  (208s)
+P3 M1 seed9: test macro-F1 0.495 acc 0.539  (212s)
+P3 M2 seed0: test macro-F1 0.437 acc 0.505  (213s)
+P3 M2 seed1: test macro-F1 0.419 acc 0.511  (215s)
+P3 M2 seed2: test macro-F1 0.453 acc 0.511  (217s)
+P3 M2 seed3: test macro-F1 0.392 acc 0.442  (219s)
+P3 M2 seed4: test macro-F1 0.406 acc 0.511  (220s)
+P3 M2 seed5: test macro-F1 0.395 acc 0.445  (221s)
+P3 M2 seed6: test macro-F1 0.439 acc 0.464  (224s)
+P3 M2 seed7: test macro-F1 0.390 acc 0.511  (225s)
+P3 M2 seed8: test macro-F1 0.431 acc 0.517  (227s)
+P3 M2 seed9: test macro-F1 0.399 acc 0.514  (228s)
+P3 M3 seed0: test macro-F1 0.410 acc 0.508  (229s)
+P3 M3 seed1: test macro-F1 0.432 acc 0.492  (231s)
+P3 M3 seed2: test macro-F1 0.450 acc 0.502  (232s)
+P3 M3 seed3: test macro-F1 0.442 acc 0.473  (234s)
+P3 M3 seed4: test macro-F1 0.471 acc 0.495  (236s)
+P3 M3 seed5: test macro-F1 0.468 acc 0.524  (237s)
+P3 M3 seed6: test macro-F1 0.422 acc 0.492  (240s)
+P3 M3 seed7: test macro-F1 0.429 acc 0.517  (241s)
+P3 M3 seed8: test macro-F1 0.393 acc 0.445  (243s)
+P3 M3 seed9: test macro-F1 0.411 acc 0.464  (245s)
+P3 M4 seed0: test macro-F1 0.420 acc 0.457  (246s)
+P3 M4 seed1: test macro-F1 0.421 acc 0.445  (248s)
+P3 M4 seed2: test macro-F1 0.386 acc 0.420  (248s)
+P3 M4 seed3: test macro-F1 0.351 acc 0.360  (249s)
+P3 M4 seed4: test macro-F1 0.363 acc 0.366  (250s)
+P3 M4 seed5: test macro-F1 0.404 acc 0.410  (251s)
+P3 M4 seed6: test macro-F1 0.299 acc 0.328  (252s)
+P3 M4 seed7: test macro-F1 0.385 acc 0.407  (253s)
+P3 M4 seed8: test macro-F1 0.407 acc 0.435  (255s)
+P3 M4 seed9: test macro-F1 0.381 acc 0.388  (257s)
+P3 M5 seed0: test macro-F1 0.336 acc 0.483  (258s)
+P3 M5 seed1: test macro-F1 0.336 acc 0.483  (258s)
+P3 M5 seed2: test macro-F1 0.359 acc 0.517  (259s)
+P3 M5 seed3: test macro-F1 0.359 acc 0.517  (259s)
+P3 M5 seed4: test macro-F1 0.336 acc 0.483  (259s)
+P3 M5 seed5: test macro-F1 0.398 acc 0.416  (260s)
+P3 M5 seed6: test macro-F1 0.336 acc 0.483  (260s)
+P3 M5 seed7: test macro-F1 0.359 acc 0.517  (261s)
+P3 M5 seed8: test macro-F1 0.359 acc 0.517  (261s)
+P3 M5 seed9: test macro-F1 0.359 acc 0.517  (261s)
+P3 M6 seed0: test macro-F1 0.510 acc 0.549  (263s)
+P3 M6 seed1: test macro-F1 0.498 acc 0.533  (265s)
+P3 M6 seed2: test macro-F1 0.501 acc 0.546  (268s)
+P3 M6 seed3: test macro-F1 0.495 acc 0.539  (270s)
+P3 M6 seed4: test macro-F1 0.507 acc 0.549  (272s)
+P3 M6 seed5: test macro-F1 0.437 acc 0.502  (273s)
+P3 M6 seed6: test macro-F1 0.489 acc 0.536  (276s)
+P3 M6 seed7: test macro-F1 0.509 acc 0.549  (277s)
+P3 M6 seed8: test macro-F1 0.393 acc 0.486  (279s)
+P3 M6 seed9: test macro-F1 0.478 acc 0.517  (284s)
+P3 TEST
+       macro_f1        accuracy        balanced_acc       
+          mean    std     mean    std         mean    std
+model                                                    
+M0       0.207  0.000    0.451  0.000        0.333  0.000
+M0r      0.333  0.020    0.339  0.019        0.341  0.021
+M1       0.466  0.036    0.530  0.016        0.476  0.031
+M2       0.416  0.023    0.493  0.030        0.448  0.018
+M3       0.433  0.025    0.491  0.024        0.454  0.016
+M4       0.382  0.037    0.402  0.041        0.394  0.028
+M5       0.354  0.019    0.493  0.032        0.415  0.006
+M6       0.482  0.038    0.531  0.022        0.498  0.019
+P2 TEST
+       macro_f1        accuracy        balanced_acc       
+          mean    std     mean    std         mean    std
+model                                                    
+M0       0.207  0.000    0.451  0.000        0.333  0.000
+M0r      0.333  0.020    0.339  0.019        0.341  0.021
+M1       0.460  0.036    0.523  0.015        0.471  0.028
+M2       0.428  0.025    0.498  0.035        0.450  0.018
+M3       0.441  0.020    0.500  0.019        0.457  0.016
+M4       0.369  0.040    0.398  0.031        0.391  0.024
+M5       0.382  0.030    0.442  0.016        0.405  0.003
+M6       0.448  0.051    0.515  0.033        0.472  0.028
+P1 TEST
+       macro_f1        accuracy        balanced_acc       
+          mean    std     mean    std         mean    std
+model                                                    
+M0       0.228  0.006    0.521  0.022        0.333  0.000
+M0r      0.315  0.018    0.329  0.017        0.327  0.022
+M1       0.438  0.034    0.509  0.029        0.442  0.032
+M2       0.423  0.014    0.485  0.028        0.427  0.016
+M3       0.421  0.021    0.493  0.018        0.424  0.021
+M4       0.363  0.010    0.403  0.021        0.372  0.013
+M5       0.400  0.022    0.462  0.024        0.400  0.022
+M6       0.431  0.035    0.497  0.034        0.432  0.036
+P3 VALID
+       macro_f1        accuracy        balanced_acc       
+          mean    std     mean    std         mean    std
+model                                                    
+M0       0.249  0.000    0.596  0.000        0.333  0.000
+M0r      0.291  0.021    0.317  0.024        0.311  0.023
+M1       0.464  0.018    0.570  0.007        0.469  0.016
+M2       0.452  0.015    0.600  0.019        0.450  0.014
+M3       0.461  0.009    0.600  0.014        0.458  0.007
+M4       0.378  0.021    0.536  0.038        0.389  0.020
+M5       0.390  0.014    0.605  0.015        0.436  0.016
+M6       0.456  0.008    0.561  0.009        0.459  0.009
+P3 TRAIN
+       macro_f1        accuracy        balanced_acc       
+          mean    std     mean    std         mean    std
+model                                                    
+M0       0.232  0.000    0.535  0.000        0.333  0.000
+M0r      0.315  0.016    0.330  0.016        0.328  0.018
+M1       0.477  0.053    0.531  0.038        0.483  0.058
+M2       0.554  0.051    0.599  0.032        0.562  0.058
+M3       0.569  0.071    0.607  0.053        0.585  0.076
+M4       0.701  0.130    0.709  0.125        0.731  0.130
+M5       0.360  0.017    0.537  0.034        0.406  0.004
+M6       0.486  0.052    0.539  0.040        0.491  0.056

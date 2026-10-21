@@ -1,0 +1,10 @@
+device: cuda 
+94652 headlines to embed | days with 0 headlines: 0
+mean headlines used per day, by split: {'test': 26.2, 'train': 49.0, 'valid': 46.4}
+label order: {0: 'positive', 1: 'negative', 2: 'neutral'}
+embedded 94652 headlines in 33s
+saved news_emb.npy (2096, 768) | news_sent.npy (2096, 3)
+NaNs: 0 | mean L2 norm: 7.929999828338623
+mean (positive - negative) FinBERT sentiment by split: {'test': -0.18400000035762787, 'train': -0.06800000369548798, 'valid': -0.0949999988079071}
+Mar 2020 mean sentiment: -0.319 | rest of test: -0.176
+avg cosine, consecutive days: 0.963 | random pairs: 0.951

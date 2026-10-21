@@ -1,4 +1,5 @@
-# Evaluation Robustness in Multimodal Financial Market Prediction
+# Regime-Aware Multimodal Deep Learning for Financial Market Forecasting
+### Evaluation robustness and regime-dependent news value
 
 ## Undergraduate Thesis — IIT Kharagpur
 
@@ -30,162 +31,79 @@ News is represented using frozen FinBERT-derived features and evaluated alongsid
 
 ---
 
-## Experimental Design
+## Headline findings (10 seeds, strict protocol P3, test Macro-F1)
 
-The study uses a controlled model family so that differences in results can be attributed to information sources and evaluation choices rather than an uncontrolled collection of architectures.
+| Model | Inputs | Test Macro-F1 (mean ± sd) |
+|---|---|---:|
+| M0 | majority class | 0.207 ± 0.000 |
+| M0r | uniform random guess | 0.333 ± 0.020 |
+| M1 | price window | 0.466 ± 0.036 |
+| M2 | price + FinBERT embedding | 0.416 ± 0.023 |
+| M3 | price + embedding + regime | 0.433 ± 0.025 |
+| M4 | news only | 0.382 ± 0.037 |
+| M5 | regime only | 0.354 ± 0.019 |
+| M6 | price + 3 FinBERT sentiment scores | 0.482 ± 0.038 |
 
-| Model | Information used | Purpose |
-|---|---|---|
-| **M0** | Majority class | Deterministic baseline |
-| **M0r** | Random prediction | Chance-level reference |
-| **M1** | Historical price | Price-only benchmark |
-| **M2** | Price + FinBERT news representation | Multimodal benchmark |
-| **M3** | Price + news + market regime | Regime-aware multimodal model |
-| **M4** | News representation | News-only ablation |
-| **M5** | Market regime | Regime-only ablation |
-| **M6** | Price + FinBERT sentiment features | Compact news-fusion model |
+* The majority baseline is a misleading floor for Macro-F1 (0.207); the random-guess floor is 0.333.
+* **News embeddings did not help.** M2 − M1 = −0.050 (95% CI −0.087 to −0.012); M2 fits training data much better than M1 (0.554 vs 0.477) but generalises worse.
+* **Compact sentiment is about neutral.** M6 − M1 = +0.016 (CI −0.017 to +0.049), not significant. M6 was added after seeing early results, so this is exploratory.
+* **Protocol effects are small and model-dependent**, not uniform inflation. Only M5 (loose protocols score higher, P1 − P3 = +0.046) and M6 (strict protocol scores higher, −0.051) have intervals excluding zero.
+* **Regime and stress window:** no consistent news benefit. The one isolated significant interval (M6 − M1 in Mid-vol, +0.054 [0.004, 0.107]) is one of about 24 comparisons and is treated as a hypothesis. In the Feb–Apr 2020 stress window (n = 50) every news difference has a wide interval around zero.
 
-The final experiments use **10 fixed random seeds (0–9)** to assess variability across runs. Model settings are fixed rather than tuned against the test set.
+Full tables with confidence intervals: [`results/EXECUTED_RESULTS.md`](results/EXECUTED_RESULTS.md). Raw cell outputs: [`results/logs/`](results/logs).
 
----
-
-## Market Regimes
-
-Market conditions are represented using a three-state volatility regime formulation derived from rolling market-return and volatility characteristics:
-
-- **Low-volatility**
-- **Mid-volatility**
-- **High-volatility**
-
-This allows the study to distinguish overall predictive performance from performance conditional on the state of the market.
-
-The regime analysis is particularly important for RQ2: a news signal that provides little incremental information during ordinary periods may behave differently when markets experience unusually large movements and uncertainty.
+![Protocol audit](figures/fig_protocol_audit.png)
+![News value by regime](figures/fig_regime_news_value.png)
 
 ---
 
-## Evaluation Framework
+## Design
 
-A central component of the thesis is the explicit separation between **model performance** and **evaluation validity**.
+![Architecture](figures/fig_architecture.png)
+![Protocols](figures/fig_protocol_design.png)
+![Split timeline](figures/fig_dataset_timeline.png)
 
-The same model family is evaluated under multiple protocols, allowing the resulting performance differences to be interpreted as an evaluation effect rather than a model effect.
+* **Data:** NIFTY (SPY, 2,111 rows, official chronological split; 1,462 / 317 / 317 after dropping 15 warm-up rows). The label of row t is the **next trading day's** close-to-close move (Fall < −0.5%, Rise > +0.5%). Details and caveats: [`data/STEP1_AUDIT.md`](data/STEP1_AUDIT.md).
+* **Price input:** 10 trading days × 12 scale-free features from a daily series recovered from the dataset's contexts. **News:** up to 50 sampled headlines per day through frozen ProsusAI/finbert (768-d mean pool, plus 3 sentiment probabilities). **Regimes:** 3-state KMeans on 20-day return and log volatility, named Low/Mid/High-vol by volatility rank.
+* **Protocols:** P1 random split with preprocessing on all rows (deliberately invalid); P2 chronological with preprocessing on all rows; P3 chronological with train-only preprocessing (primary).
+* **Training (frozen, never tuned on test):** LSTM 64, dropout 0.2, news MLP 768→64, regime embedding 8, lr 1e-3, weight decay 1e-4, batch 64, ≤ 50 epochs, patience 8 on validation Macro-F1, class-weighted loss, 10 seeds.
+* **Inference:** bootstrap over test rows (1,000 draws) for differences; seed bootstrap for protocol gaps.
 
-The strict protocol is the primary benchmark for scientific conclusions. Results from more permissive protocols are retained as part of the audit rather than being presented as equally valid estimates of out-of-sample performance.
-
-Performance is evaluated using **macro-F1**, which is appropriate for comparing predictive quality across market-movement classes without allowing the majority class to dominate the headline metric.
-
----
-
-## Current Results
-
-The executed strict-protocol benchmark provides the following test-set macro-F1 results, reported as mean ± standard deviation across 10 seeds:
-
-| Model | Macro-F1 |
-|---|---:|
-| M0 — Majority | 0.207 ± 0.000 |
-| M0r — Random | 0.333 ± 0.020 |
-| M1 — Price | 0.466 ± 0.036 |
-| M2 — Price + News | 0.416 ± 0.023 |
-| M3 — Price + News + Regime | 0.433 ± 0.025 |
-| M4 — News only | 0.382 ± 0.037 |
-| M5 — Regime only | 0.354 ± 0.019 |
-| M6 — Price + Sentiment | 0.482 ± 0.038 |
-
-These results do **not** support a simple claim that adding a high-dimensional news embedding automatically improves prediction. In the current experiment, the price-only model provides a stronger benchmark than the full price-plus-news embedding model, while the compact sentiment representation achieves the highest observed strict-protocol macro-F1 among the tested predictive models.
-
-The protocol audit likewise shows that the effect of evaluation choices is **model-dependent rather than uniformly inflationary**. This distinction is central to the thesis: the study is designed to measure evaluation sensitivity rather than assume that every permissive protocol necessarily produces a larger score.
-
----
-
-## Stress-Period Analysis
-
-A dedicated stress-period analysis focuses on **February–April 2020**, covering the major market disruption surrounding the COVID-19 crash.
-
-The analysis compares model performance during the stress window with performance outside the window and further examines performance across volatility regimes.
-
-This is intended to answer the more specific question:
-
-> Does the usefulness of financial news change when the market itself enters an unusual regime?
-
-The stress analysis is therefore treated as a conditional analysis of the news signal, rather than as evidence that a model is universally superior.
-
----
-
-## Repository Structure
+## Repository map
 
 ```text
-btp-regime-aware-multimodal-forecasting/
-│
-├── data/                  # Input and processed datasets
-├── figures/               # Generated research figures
-├── literature/            # Literature notes and references
-├── notebooks/             # Executable Colab/Jupyter notebooks
-├── report/                # Thesis report materials
-├── presentation/          # Presentation materials
-├── results/               # Metrics, predictions and result summaries
-│
-├── src/
-│   ├── environment.py
-│   ├── data.py
-│   ├── regimes.py
-│   ├── finbert.py
-│   ├── model_training.py
-│   ├── audit.py
-│   ├── analysis.py
-│   └── figures.py
-│
-├── config.py              # Frozen experiment configuration
-└── references.md          # Literature review and research-gap notes
+src/            01_data.py  02_regimes.py  03_finbert.py  04_models.py  05_analysis.py  06_diagrams.py
+notebooks/      BTP_pipeline_executed.ipynb   (the run that produced all numbers)
+results/        EXECUTED_RESULTS.md, logs/    (raw cell outputs)
+figures/        eda_overview, regimes_overview, fig_protocol_audit, fig_regime_news_value, fig_architecture, fig_protocol_design, fig_dataset_timeline
+data/           STEP1_AUDIT.md                (data files are regenerated, not committed)
+literature/     references.md, papers.csv     (reading list, see status inside)
+report/         results_draft.md, README.md
+presentation/   slide_outline.md
+config.py       reference copy of the frozen settings
 ```
 
-The `notebooks/` directory contains the execution-oriented notebooks used during the research workflow. The corresponding reusable Python pipeline code is maintained separately under `src/`.
+## Reproduce
 
----
+```bash
+pip install -r requirements.txt
+export BTP_ROOT=/path/to/workdir      # default: /content/drive/MyDrive/btp (Colab)
+python src/01_data.py   # downloads NIFTY, builds the daily series, audits timing
+python src/02_regimes.py
+python src/03_finbert.py   # GPU recommended
+python src/04_models.py    # 270 runs, ~6-8 min on CPU
+python src/05_analysis.py
+python src/06_diagrams.py  # no data needed
+```
+The scripts are written as `# %%` cells and were run cell by cell in Colab. The command-line path was tested end-to-end only on a synthetic mock dataset; the reported numbers come from the notebook.
 
-## Reproducibility
+## Transparency
 
-The project follows a fixed experimental configuration:
+* M6 (price + sentiment scores) and the random-guess baseline M0r were added after the first results were seen.
+* About 24 comparisons are reported; isolated significant intervals are hypotheses.
+* Test rows are overlapping daily observations, so intervals are likely somewhat optimistic. The test period is one 20-month stretch dominated by the 2020 shock.
+* The amount and nature of headlines changes across eras (277, 54 and 26 per day in train, validation and test).
+* **Implemented but not run on real data:** M7 (regime-gated fusion) in `src/04_models.py` and the `LAG = 1` robustness option. They are not part of the results.
+* This is a methodological study, not a trading system. Nothing here shows exploitable returns.
 
-- **10 random seeds:** 0–9
-- Fixed model and training configuration
-- Chronological evaluation for the strict benchmark
-- Training-only preprocessing under the strict protocol
-- No test-set hyperparameter tuning
-- Frozen FinBERT representations rather than repeatedly fine-tuning the language model
-
-The purpose of these constraints is to make the comparison between protocols and information sources interpretable and reproducible.
-
----
-
-## Research Status
-
-The main data-processing, regime construction, FinBERT representation, model training, protocol audit, regime analysis, and stress-period analysis pipelines have been implemented and executed.
-
-Two robustness extensions remain explicitly planned before the experimental phase is considered closed:
-
-1. **Regime-conditioned / gated fusion** to test whether the usefulness of news can be made conditional on market state.
-2. **Lagged news analysis (LAG=1)** to provide a stricter temporal robustness check on the news signal.
-
-These experiments are intended as robustness checks rather than changes to the research questions or core experimental design.
-
----
-
-## Scope and Interpretation
-
-This project is an undergraduate research study, not a trading system or investment strategy.
-
-The objective is to study **evaluation reliability and conditional predictive information** in multimodal market prediction. Reported predictive performance should therefore be interpreted as an experimental result under the stated data construction and evaluation protocols, not as evidence of exploitable financial returns or deployable trading performance.
-
-The final thesis will distinguish clearly between:
-
-- observed empirical results,
-- methodological implications,
-- robustness evidence,
-- and limitations of the experimental setup.
-
----
-
-## Citation and Academic Use
-
-This repository accompanies an undergraduate thesis at **IIT Kharagpur**. The final report and presentation will provide the complete methodological description, literature context, experimental results, limitations, and conclusions.
-
-For literature sources and the research-gap formulation, see [references.md](references.md).
+Literature status: see [`literature/references.md`](literature/references.md); it is a reading list, not a completed review.

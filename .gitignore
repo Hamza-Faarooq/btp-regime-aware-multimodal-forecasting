@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+# large or regenerable artefacts: rebuild with src/01-03
+data/*.parquet
+data/*.npy
+data/*.joblib
+results/*.parquet
+results/**/*.parquet

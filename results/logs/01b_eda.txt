@@ -1,0 +1,12 @@
+label   Fall  Neutral   Rise
+split                       
+test   0.230    0.451  0.319
+train  0.205    0.535  0.260
+valid  0.167    0.596  0.237
+             mean   min     max
+split                          
+test    26.179811   7.0    46.0
+train  277.358413  11.0  1627.0
+valid   53.735016  18.0    93.0
+missing values per column:
+ Series([], dtype: int64)

@@ -1,0 +1,7 @@
+M1 predicted share Fall/Neutral/Rise: [0.191 0.545 0.263]
+M2 predicted share Fall/Neutral/Rise: [0.303 0.581 0.116]
+M3 predicted share Fall/Neutral/Rise: [0.302 0.525 0.173]
+M6 predicted share Fall/Neutral/Rise: [0.322 0.502 0.176]
+true test share: [0.23  0.451 0.319]
+M1 per-class F1 (Fall/Neutral/Rise): [0.291 0.687 0.42 ]
+M6 per-class F1 (Fall/Neutral/Rise): [0.397 0.69  0.358]

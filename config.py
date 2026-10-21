@@ -1,5 +1,6 @@
-# BTP project configuration
-# Frozen before final experimentation; do not tune on the test set.
+# BTP project configuration -- REFERENCE COPY of the frozen settings.
+# The scripts in src/ define these values inline (they are not imported from here); keep this file in sync if anything changes.
+# Frozen before final experimentation; never tuned on the test set.
 
 SEEDS = list(range(10))
 DATA_DIR = "data"

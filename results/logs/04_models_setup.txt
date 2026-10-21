@@ -1,0 +1,2 @@
+X (2096, 10, 12) | features: ['ret', 'oc', 'hl', 'lvol_rel', 'macd_n', 'rsi', 'cci', 'dx', 'bollpos', 'bollw', 'c_sma30', 'c_sma60']
+class counts (all rows): [426, 1114, 556] | regimes available: ['regime_p3', 'regime_all']

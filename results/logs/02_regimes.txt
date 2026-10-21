@@ -1,0 +1,36 @@
+(2096, 10) (2695, 17)
+NaNs in regime features: 0
+share of rows with the same regime under train-only vs all-data fit: 0.9356
+{'test': 0.9495, 'train': 0.9227, 'valid': 0.9811}
+Regime stats on TRAIN rows (P3 fit):
+             n  mean_ret20  mean_vol20  mean_next_day_ret   share
+Low-vol   700      0.0185      0.0055            -0.0000  0.4788
+Mid-vol   411      0.0319      0.0103             0.0009  0.2811
+High-vol  351     -0.0363      0.0126             0.0010  0.2401
+
+Regime share by split (P3 fit):
+ regime_p3  High-vol  Low-vol  Mid-vol
+split                                
+test          0.249    0.394    0.356
+train         0.240    0.479    0.281
+valid         0.243    0.640    0.117
+
+Label mix within each regime (P3 fit), all splits:
+ label       Fall  Neutral   Rise
+regime_p3                       
+High-vol   0.306    0.288  0.406
+Low-vol    0.164    0.642  0.194
+Mid-vol    0.182    0.549  0.269
+Transition matrix (daily, P3 model):
+           Low-vol  Mid-vol  High-vol
+Low-vol     0.961    0.017     0.021
+Mid-vol     0.058    0.869     0.073
+High-vol    0.016    0.109     0.875
+
+Run length in trading days:
+           count  mean  median  max
+regime                            
+High-vol     81   7.9     4.0   39
+Low-vol      51  25.9    15.0  333
+Mid-vol      93   7.7     4.0   40
+saved regimes.parquet, stats, transition matrix, models

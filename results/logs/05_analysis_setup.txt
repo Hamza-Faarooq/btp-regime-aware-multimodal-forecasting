@@ -1,0 +1,1 @@
+seeds per cell: [10]

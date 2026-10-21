@@ -1,0 +1,1 @@
+P3 test rows: 317 | seeds: 10 | rows per regime: {'Low-vol': 125, 'Mid-vol': 113, 'High-vol': 79}

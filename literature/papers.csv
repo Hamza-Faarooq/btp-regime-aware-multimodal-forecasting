@@ -1,0 +1,12 @@
+bucket,authors,year,link,what_they_did (abstract only),relevance_to_this_thesis,opened_by_me
+Dataset,"Saqur, Kato, Vinden, Rudzicz",2024,https://arxiv.org/abs/2405.09747,"NIFTY Financial News Headlines Dataset (SPY, 2010-2020)",Benchmark used in this thesis,FALSE
+Financial text,Araci,2019,https://arxiv.org/abs/1908.10063,FinBERT: BERT adapted to financial sentiment,"Text encoder (frozen) used for M2-M4, M6",FALSE
+Text-based prediction,"Kraus, Feuerriegel",2017,https://arxiv.org/abs/1710.03954,Deep nets + transfer learning on disclosures; notes comparability problems across studies,Motivation for RQ1,FALSE
+Price + news,Halder,2022,https://arxiv.org/abs/2211.07392,FinBERT-LSTM on NASDAQ-100 + NYT news,Precedent for price+news LSTM,FALSE
+Price + news,Gu et al.,2024,https://arxiv.org/abs/2407.16150,"FinBERT-LSTM, NASDAQ-100 + Benzinga news categories",Precedent for price+news LSTM,FALSE
+Price + news,"Karadas, Eravci, Ozbayoglu",2025,https://arxiv.org/abs/2502.05186,"LSTM augmented with tweet/news sentiment (ChatGPT-4o, FinBERT)",Precedent; reports up to 5% gain,FALSE
+Fusion architecture,Zong et al. (check authors per version),2024,https://arxiv.org/abs/2406.06594,Gated cross-attention multimodal movement prediction,Contrast: complex fusion,FALSE
+Regime / fusion,"Bustarviejo, Bousono-Calzon (UNVERIFIED details)",2026,https://www.sciencedirect.com/science/article/pii/S2666827026000058,Cross-attention fusion with calibrated uncertainty,Regime experiments reported (unverified),FALSE
+Regime / fusion,"Wang, Shaikh, Yong, Elmannai, Por",2026,https://doi.org/10.1038/s41598-026-43381-3,"FusionLSTM-CNF; S&P 500, NASDAQ, FTSE 100; four regimes",Closest regime-aware multimodal precedent found,FALSE
+Evaluation,"Bailey, Borwein, Lopez de Prado, Zhu",2015,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2326253,Probability of backtest overfitting (CSCV),Motivation for strict evaluation,FALSE
+Evaluation,"Bailey, Borwein, Lopez de Prado, Zhu",2014,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2308659,Pseudo-mathematics and financial charlatanism,Motivation for freezing configuration,FALSE

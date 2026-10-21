@@ -1,7 +1,3 @@
-# Step 2 — Market Regimes
-# Generated from the attached BTP.ipynb; execute sequentially in one Colab runtime.
-
-# ===== Original notebook cell 3 =====
 # =====================================================================
 # BTP Step 2: market regimes (3-state KMeans on rolling return + volatility)
 # Run in Colab after Step 1 has saved clean.parquet and daily_series.parquet.
@@ -15,9 +11,12 @@ from pathlib import Path
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 
-ROOT = Path("/content/drive/MyDrive/btp"); DATA = ROOT / "data"; FIG = ROOT / "figures"; RES = ROOT / "results"
+import os
+BTP_ROOT = Path(os.environ.get("BTP_ROOT", "/content/drive/MyDrive/btp"))   # set BTP_ROOT to run outside Colab
+ROOT = BTP_ROOT; DATA = ROOT / "data"; FIG = ROOT / "figures"; RES = ROOT / "results"
 FIG.mkdir(exist_ok=True); RES.mkdir(exist_ok=True)
-LAG = 0          # MUST match LAG in Step 1 Cell 6 (0 = window ends at target date t)
+LAG = 0          # 0 = window ends at target date t (main analysis) | 1 = ends at t-1 (robustness run; must match 04_models.py)
+SUF = "" if LAG == 0 else f"_lag{LAG}"      # LAG=0 keeps the original file names; other lags write separate files
 W = 20           # rolling window (trading days) for regime features
 K = 3            # number of regimes
 KM_SEED = 0      # fixed: the regime labelling is part of data preparation, not a per-model seed
@@ -42,7 +41,11 @@ assert (idx >= 0).all()
 assert (daily["date"].to_numpy()[idx] <= df["date"].to_numpy()).all(), "LEAK: regime feature uses a future day"
 for c in ["ret20", "vol20", "lvol20"]:
     df[c] = daily[c].to_numpy()[idx]
-print("NaNs in regime features:", int(df[FEAT].isna().sum().sum()))
+nan_rows = df[FEAT].isna().any(axis=1)
+if nan_rows.any():                                                     # only possible for LAG >= 1: earliest row lacks 20 days of history
+    print("dropping", int(nan_rows.sum()), "row(s) without full regime history:", df.loc[nan_rows, "date"].dt.date.astype(str).tolist())
+    df = df[~nan_rows].reset_index(drop=True)
+print("rows kept:", len(df), "| NaNs in regime features:", int(df[FEAT].isna().sum().sum()))
 
 # %% Cell 3: the fit function -- takes the rows to fit on, which is what the leakage audit varies
 def fit_regimes(X, seed=KM_SEED):
@@ -76,14 +79,9 @@ def regime_stats(d, col):
     return g.round(4)
 
 stats_train = regime_stats(df[is_train], "regime_p3")
-print("Regime stats on TRAIN rows (P3 fit):
-", stats_train)
-print("
-Regime share by split (P3 fit):
-", pd.crosstab(df["split"], df["regime_p3"].map(dict(enumerate(NAMES))), normalize="index").round(3))
-print("
-Label mix within each regime (P3 fit), all splits:
-",
+print("Regime stats on TRAIN rows (P3 fit):\n", stats_train)
+print("\nRegime share by split (P3 fit):\n", pd.crosstab(df["split"], df["regime_p3"].map(dict(enumerate(NAMES))), normalize="index").round(3))
+print("\nLabel mix within each regime (P3 fit), all splits:\n",
       pd.crosstab(df["regime_p3"].map(dict(enumerate(NAMES))), df["label"], normalize="index").round(3))
 
 # %% Cell 5: persistence -- transition matrix and run lengths on the DAILY series (P3 model)
@@ -93,12 +91,9 @@ daily.loc[ok, "regime_p3"] = assign_regimes(m_p3, daily.loc[ok, FEAT].to_numpy()
 seq = daily["regime_p3"].dropna().astype(int).to_numpy()
 T = pd.crosstab(pd.Series(seq[:-1], name="from"), pd.Series(seq[1:], name="to"), normalize="index").round(3)
 T.index = [NAMES[i] for i in T.index]; T.columns = [NAMES[i] for i in T.columns]
-print("Transition matrix (daily, P3 model):
-", T)
+print("Transition matrix (daily, P3 model):\n", T)
 runs = pd.DataFrame([(NAMES[k], len(list(g))) for k, g in itertools.groupby(seq)], columns=["regime", "run_len"])
-print("
-Run length in trading days:
-", runs.groupby("regime")["run_len"].agg(["count", "mean", "median", "max"]).round(1))
+print("\nRun length in trading days:\n", runs.groupby("regime")["run_len"].agg(["count", "mean", "median", "max"]).round(1))
 
 # %% Cell 6: figures
 fig, ax = plt.subplots(1, 2, figsize=(15, 4.4))
@@ -119,10 +114,10 @@ cen = m_p3["sc"].inverse_transform(m_p3["km"].cluster_centers_)
 ax[1].scatter(cen[:, 0], cen[:, 1], marker="X", s=140, c="k", label="centres")
 ax[1].set_xlabel("20-day return"); ax[1].set_ylabel("log 20-day volatility"); ax[1].set_title("Training rows in regime-feature space")
 ax[1].legend()
-plt.tight_layout(); plt.savefig(FIG / "regimes_overview.png", dpi=200); plt.show()
+plt.tight_layout(); plt.savefig(FIG / f"regimes_overview{SUF}.png", dpi=200); plt.show()
 
 # %% Cell 7: save
-df[["id", "ret20", "vol20", "lvol20", "regime_p3", "regime_all"]].to_parquet(DATA / "regimes.parquet")
-stats_train.to_csv(RES / "regime_stats_train.csv"); T.to_csv(RES / "regime_transition_matrix.csv")
-joblib.dump(m_p3, DATA / "regime_model_p3.joblib"); joblib.dump(m_p12, DATA / "regime_model_p12.joblib")
+df[["id", "ret20", "vol20", "lvol20", "regime_p3", "regime_all"]].to_parquet(DATA / f"regimes{SUF}.parquet")
+stats_train.to_csv(RES / f"regime_stats_train{SUF}.csv"); T.to_csv(RES / f"regime_transition_matrix{SUF}.csv")
+joblib.dump(m_p3, DATA / f"regime_model_p3{SUF}.joblib"); joblib.dump(m_p12, DATA / f"regime_model_p12{SUF}.joblib")
 print("saved regimes.parquet, stats, transition matrix, models")

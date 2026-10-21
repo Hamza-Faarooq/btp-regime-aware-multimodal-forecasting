@@ -1,0 +1,103 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'date', 'context', 'news', 'conversations', 'label', 'pct_change'],
+        num_rows: 1477
+    })
+    test: Dataset({
+        features: ['id', 'date', 'context', 'news', 'conversations', 'label', 'pct_change'],
+        num_rows: 317
+    })
+    valid: Dataset({
+        features: ['id', 'date', 'context', 'news', 'conversations', 'label', 'pct_change'],
+        num_rows: 317
+    })
+})
+keys: ['id', 'date', 'context', 'news', 'conversations', 'label', 'pct_change']
+context col: 'date,open,high,low,close,adj_close,volume,pct_change,macd,boll_ub,boll_lb,rsi_30,cci_30,dx_30,close_30_sma,close_60_sma'
+PROMPT (first 1800 chars):
+ "Project the $SPY index's movement by assessing market data and news headlines from 2010-01-06. Offer a reply as 'Rise', 'Fall', or 'Neutral', along with the predicted percentage change in a newline. Conclude with 'Neutral' if the envisaged modification is under 0.50%.\nContext:date,open,high,low,close,adj_close,volume,pct_change,macd,boll_ub,boll_lb,rsi_30,cci_30,dx_30,close_30_sma,close_60_sma\n2010-01-05,113.26,113.68,112.85,113.63,87.7148,111579900.0,0.0026,0.8299,113.771,109.333,59.6988,177.9755,10.0699,111.237,109.658\n\nChina Officials Likely Knew of Bad Milk\nSony's CEO on Strategy in 3-D Technology\nCopper Settles at 16-Month High\nGold Ends Near 3-Week High\nKraft Gets Antitrust Clearance\nEuropean Stocks Close Flat\nM&S Sales Miss Expectations\nYen Boosts Japan's Exporters\nFuture Group: Value Retail Unit May Consider IPO\nDollar, Yen Gain on Haven Plays\nClothing Sales Sagged in December\nLuxury Logos Draw Asian Shoppers\nMexican Stocks Have Record in Sight\nCold Snap Heats Up OJ Prices\nCiti's Havens Got $9 Million for '09\nTCW Will Quit U.S. Program\nScripps to Offer Free Show in Cablevision Feud\nTwo Pilots Die in Small-Jet Crash\nAnswer:"
+NEWS (first 500 chars):
+ "China Officials Likely Knew of Bad Milk\nSony's CEO on Strategy in 3-D Technology\nCopper Settles at 16-Month High\nGold Ends Near 3-Week High\nKraft Gets Antitrust Clearance\nEuropean Stocks Close Flat\nM&S Sales Miss Expectations\nYen Boosts Japan's Exporters\nFuture Group: Value Retail Unit May Consider IPO\nDollar, Yen Gain on Haven Plays\nClothing Sales Sagged in December\nLuxury Logos Draw Asian Shoppers\nMexican Stocks Have Record in Sight\nCold Snap Heats Up OJ Prices\nCiti's Havens Got $9 Million for"
+label / pct_change: Neutral 0.0042
+(2111, 10)
+             min        max  count
+split                             
+test  2019-02-13 2020-09-21    317
+train 2010-01-06 2017-06-27   1477
+valid 2017-06-28 2019-02-12    317
+mean headlines per day: 206.8043581241118 (about 1 means the headline separator is not a newline: check Cell 1)
+OK: latest input date is strictly before target date for all 2111 rows
+context lengths: {6: 942, 7: 533, 8: 372, 5: 252, 4: 10, 2: 1, 1: 1}
+gap (calendar days) between last input and target: {1: 1545, 2: 11, 3: 483, 4: 70, 5: 2}
+target 2016-10-20  | last input 2016-10-19  | label Neutral  | pct +0.0005
+target 2015-06-24  | last input 2015-06-23  | label Neutral  | pct -0.0030
+target 2012-11-15  | last input 2012-11-14  | label Neutral  | pct +0.0049
+target 2013-04-22  | last input 2013-04-19  | label Rise  | pct +0.0103
+target 2019-02-11  | last input 2019-02-08  | label Rise  | pct +0.0129
+label vs +/-0.5% rule mismatches: 10 of 2111
+unique trading days recovered from contexts: 2695 | 2010-01-05 to 2020-09-18
+expected (approx) trading days: 2689 | recovered: 2695 | missing: 15
+sample missing days: ['2010-04-02', '2011-04-22', '2012-04-06', '2012-10-29', '2012-10-30', '2013-03-29', '2014-04-18', '2015-04-03', '2016-03-25', '2017-04-14', '2018-03-30', '2018-12-05', '2018-12-31', '2019-04-19', '2020-04-10']
+target rows: 2111 vs approx trading days in the same range: 2689
+target-date gaps in business days (1 = consecutive): {1: 1544, 2: 469, 3: 77, 4: 20}
+target pct_change vs context pct_change on 2110 overlapping dates: share within 1e-3 = 0.064
+max disagreement in close across duplicate context rows: 0.0
+target              1.000
+cc_same_day        -0.148
+cc_next_day         1.000
+cc_prev_day         0.058
+oc_same_day        -0.116
+ctx_pct_same_day   -0.147
+Name: target, dtype: float64
+cc_same_day        share within 1e-3 of target: 0.066
+cc_next_day        share within 1e-3 of target: 1.000
+cc_prev_day        share within 1e-3 of target: 0.081
+oc_same_day        share within 1e-3 of target: 0.087
+ctx_pct_same_day   share within 1e-3 of target: 0.064
+      target  cc_same_day  cc_next_day  cc_prev_day  oc_same_day  \
+mean  0.0005       0.0006       0.0005       0.0005       0.0003   
+std   0.0107       0.0111       0.0107       0.0108       0.0078   
+min  -0.0957      -0.1094      -0.0957      -0.1094      -0.0418   
+max   0.0906       0.0906       0.0906       0.0906       0.0468   
+
+      ctx_pct_same_day  
+mean            0.0006  
+std             0.0111  
+min            -0.1094  
+max             0.0906  
+            target  cc_same_day  cc_next_day  cc_prev_day  oc_same_day  \
+date                                                                     
+2010-01-06  0.0042       0.0007       0.0042          NaN       0.0017   
+2010-01-07  0.0033       0.0042       0.0033       0.0007       0.0061   
+2010-01-11 -0.0093       0.0014      -0.0093       0.0033      -0.0030   
+2010-01-12  0.0084      -0.0093       0.0084       0.0014      -0.0027   
+2010-01-13  0.0027       0.0084       0.0027      -0.0093       0.0059   
+2010-01-14 -0.0112       0.0027      -0.0112       0.0084       0.0038   
+
+            ctx_pct_same_day  
+date                          
+2010-01-06            0.0007  
+2010-01-07            0.0042  
+2010-01-11            0.0014  
+2010-01-12           -0.0093  
+2010-01-13            0.0084  
+2010-01-14            0.0027  
+label-rule mismatches:
+           date label  pct_change
+135  2010-09-09  Rise       0.005
+486  2012-06-14  Rise       0.005
+491  2012-06-25  Rise       0.005
+513  2012-08-06  Rise       0.005
+768  2013-11-21  Rise       0.005
+991  2015-01-20  Rise       0.005
+1553 2017-11-14  Fall      -0.005
+1686 2018-07-23  Rise       0.005
+1762 2018-12-11  Rise       0.005
+1841 2019-05-09  Rise       0.005
+label equals next-trading-day close-to-close return on 2110 rows: share = 1.0000
+dropped 15 early rows without 20 days of history: ['2010-01-06', '2010-01-07', '2010-01-11', '2010-01-12', '2010-01-13', '2010-01-14', '2010-01-19', '2010-01-20', '2010-01-21', '2010-01-25', '2010-01-26', '2010-01-27', '2010-01-28', '2010-02-01', '2010-02-02']
+X shape: (2096, 10, 14) | NaNs: 0 | max calendar span of a 10-row window (days): 18
+rows per split after dropping: {'train': 1462, 'valid': 317, 'test': 317}
+saved to /content/drive/MyDrive/btp/data
