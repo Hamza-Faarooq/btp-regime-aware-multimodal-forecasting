@@ -73,7 +73,7 @@ High-vol & 0.016 & 0.109 & 0.875\\
 \end{table}
 \figpage{regimes_overview.png}{\textwidth}{Left: SPY close coloured by regime (strict fit); dashed lines mark the validation and test starts. Right: training rows in regime-feature space with the three cluster centres.}
 
-Across all rows, the label mix differs strongly by regime: the share of Neutral next days is 64.2\% in Low-vol, 54.9\% in Mid-vol and only 28.8\% in High-vol, where Rise (40.6\%) and Fall (30.6\%) dominate. Regimes therefore carry information about the \emph{size} of the next move rather than its sign.
+Across all rows, the label mix differs by regime: the share of Neutral next days is 64.2\% in Low-vol, 54.9\% in Mid-vol and 28.8\% in High-vol, where Rise (40.6\%) and Fall (30.6\%) are more frequent. This descriptive association is consistent with recent volatility being related to the next-day class distribution, but it does not establish that a model primarily predicts move magnitude rather than direction.
 
 \subsection{Model Family}
 All learned models share one architecture whose branches are switched on or off (Figure~1 in the abstract; Table~\ref{tab:models}).
@@ -129,7 +129,7 @@ P1 is deliberately invalid and serves as a permissive reference; P3 is the prima
 
 \subsection{Statistical Inference}
 \paragraph{Protocol gaps (RQ1).} For each model the gap is the difference between the mean test Macro-F1 under a looser protocol and under P3. A 95\% interval is obtained by bootstrapping the 10 per-seed scores of each protocol separately (1{,}000 resamples).
-\paragraph{News value (RQ2).} For each group (all test rows, each regime, the stress window, and its complement), the seed-averaged predictions of each model are evaluated on test rows resampled with replacement (1{,}000 draws, the same resample for every model), and the difference in Macro-F1 between two models is computed on each resample. The 2.5th and 97.5th percentiles give the interval. These intervals describe test-set sampling uncertainty.
+\paragraph{News value (RQ2).} For each group (all test rows, each regime, the stress window, and its complement), the seed-averaged predictions of each model are evaluated on test rows resampled with replacement (1{,}000 draws, the same resample for every model), and the difference in Macro-F1 between two models is computed on each resample. The 2.5th and 97.5th percentiles give the interval. These intervals describe row-resampling uncertainty conditional on the seed-averaged predictions. Since observations are temporally dependent and price windows overlap, treating test rows as independently resampled may understate uncertainty; a block bootstrap is left for future work.
 \paragraph{Stress window.} The stress window is 1 February to 30 April 2020 and contains 50 test rows; the regime groups contain 125 (Low-vol), 113 (Mid-vol) and 79 (High-vol) test rows.
 \paragraph{Multiplicity.} About 24 pairwise comparisons are reported; an isolated interval that excludes zero is therefore treated as a hypothesis, not as a finding.
 
