@@ -15,7 +15,7 @@
 
 \section{Reproducibility}
 The code, executed notebook, raw cell outputs and figure-generating scripts are in the project repository
-(\texttt{github.com/Hamza-Faarooq/btp-regime-aware-multimodal-forecasting}). The pipeline is run in this order: \texttt{01\_data.py} (download, daily series, audit), \texttt{02\_regimes.py}, \texttt{03\_finbert.py}, \texttt{04\_models.py} (270 runs), \texttt{05\_analysis.py}, and \texttt{06\_diagrams.py}. All random seeds are fixed (model seeds 0--9, headline sampling seed 1234, $k$-means seed 0, bootstrap seeds fixed in the analysis script). The scripts were run cell by cell in Google Colab; the command-line path was tested end-to-end on a synthetic mock dataset.
+(\texttt{github.com/Hamza-Faarooq/btp-regime-aware-multimodal-forecasting}). The reported results were produced by the executed Google Colab notebook and its saved outputs. The repository also contains modular scripts for data preparation, regime assignment, FinBERT encoding, model training and analysis. The full 270-run script grid includes M7, but M7 was not evaluated on real data for the reported results; the reported real-data grid covers M0--M6 across three protocols and ten seeds. Random seeds are fixed for model initialisation (0--9), headline sampling (1234), $k$-means (0), and the bootstrap analysis. The modular command-line path was tested on a synthetic mock dataset; a clean end-to-end reproduction from raw data has not yet been independently verified.
 
 \section*{List of Important Symbols}
 \addcontentsline{toc}{section}{List of Important Symbols}
