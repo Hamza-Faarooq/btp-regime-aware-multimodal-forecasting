@@ -1,4 +1,12 @@
 # Report
 
-* `results_draft.md`: draft abstract, results tables, discussion, limitations and transparency appendix using the executed numbers. It is a **draft to be rewritten in the author's own words**.
-* Suggested chapter plan: 1 Introduction (motivation, RQ1, RQ2) | 2 Related work (see `literature/references.md`; only cite what has actually been read) | 3 Data and audit (`data/STEP1_AUDIT.md`, `figures/fig_dataset_timeline.png`, `eda_overview.png`) | 4 Methods (`figures/fig_architecture.png`, `fig_protocol_design.png`, `regimes_overview.png`) | 5 Results (`results/EXECUTED_RESULTS.md`, `fig_protocol_audit.png`, `fig_regime_news_value.png`) | 6 Discussion, limitations, conclusion | Appendix: transparency statement.
+# Report source and build status
+
+* **Submission source:** `latex/main.tex` and the chapter files under `latex/chapters/`. These are the report files to edit and compile.
+* `BTP_Report.pdf` is a previously compiled snapshot; after changing the LaTeX sources, recompile the PDF and check the output before submission.
+* `results_draft.md` is a working-notes document, not the submission report. Its tables and claims should remain consistent with `results/EXECUTED_RESULTS.md`.
+* `literature/references.md` is a candidate reading list and verification log, not evidence that every cited paper has been read in full. Do not claim a full literature survey.
+
+## Compile
+
+From this directory, compile the report source from `latex/` with `pdflatex main.tex` twice (to resolve references and the table of contents). Check that the logo and all figures resolve from the `latex/` directory. The submitted PDF should be regenerated after the final source edit.
