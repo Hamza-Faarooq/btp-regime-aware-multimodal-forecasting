@@ -1,12 +1,12 @@
 \newpage
 \section{Conclusion and Future Work}\label{ch:conclusion}
-On the NIFTY benchmark, with strict chronological evaluation, a small price-only LSTM was the model to beat. FinBERT embeddings of daily headlines reduced out-of-sample Macro-F1; a low-dimensional sentiment summary gave at most a small and statistically unreliable gain; and an explicit market-regime input added little because the price window already encodes recent volatility. No evidence was found that news is more valuable during the 2020 stress period, although the sample is small. Moving from a strict to a looser evaluation protocol did not systematically inflate results, except for a model relying solely on a persistent regime label.
+On this NIFTY/SPY benchmark, the strict chronological results identify the price-only LSTM as a strong baseline. Adding 768-dimensional FinBERT embeddings reduces Macro-F1, while a three-probability sentiment input has a higher point estimate but no reliable overall gain. Adding a regime label to the price-plus-embedding model also does not yield a reliable overall improvement. In the February--April 2020 stress window, no news-related difference from price-only is distinguishable from zero, but the 50-row sample is too small to exclude moderate effects. Looser evaluation protocols do not systematically inflate performance; the regime-only model is the clearest exception. Because protocol test samples differ, the observed gaps cannot be interpreted as pure leakage effects.
 
 \begin{keybox}
 \textbf{Take-aways.}
 (i) Evaluate against a strong price-only baseline and a random-guess floor; a majority baseline is a misleading Macro-F1 floor.
-(ii) Fit all preprocessing and regimes on training data only.
-(iii) Expect high-dimensional text embeddings to overfit small samples, and prefer compact summaries or stronger regularisation.
+(ii) Fit all learned preprocessing and regime assignments using training data only for the primary evaluation.
+(iii) Treat the embedding overfit pattern as a result for this setup, not a universal property of financial text; compact summaries merit further controlled testing.
 (iv) Report every model and comparison run, and treat isolated significant intervals as hypotheses.
 \end{keybox}
 \subsection{Future Work}
