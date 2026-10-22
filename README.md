@@ -44,7 +44,7 @@ News is represented using frozen FinBERT-derived features and evaluated alongsid
 | M5 | regime only | 0.354 ± 0.019 |
 | M6 | price + 3 FinBERT sentiment scores | 0.482 ± 0.038 |
 
-* The majority baseline is a misleading floor for Macro-F1 (0.207); the random-guess floor is 0.333.
+* The majority baseline scores 0.207 Macro-F1; a uniform random guess averages 0.333. The majority baseline is not a useful Macro-F1 floor.
 * **News embeddings did not help.** M2 − M1 = −0.050 (95% CI −0.087 to −0.012); M2 fits training data much better than M1 (0.554 vs 0.477) but generalises worse.
 * **Compact sentiment is about neutral.** M6 − M1 = +0.016 (CI −0.017 to +0.049), not significant. M6 was added after seeing early results, so this is exploratory.
 * **Protocol effects are small and model-dependent**, not uniform inflation. Only M5 (loose protocols score higher, P1 − P3 = +0.046) and M6 (strict protocol scores higher, −0.051) have intervals excluding zero.
@@ -95,7 +95,7 @@ python src/04_models.py    # 270 runs, ~6-8 min on CPU
 python src/05_analysis.py
 python src/06_diagrams.py  # no data needed
 ```
-The scripts are written as `# %%` cells and were run cell by cell in Colab. The command-line path was tested end-to-end only on a synthetic mock dataset; the reported numbers come from the notebook.
+The scripts are written as `# %%` cells and were run cell by cell in Colab. The command-line path was tested end-to-end only on a synthetic mock dataset; the reported numbers come from the executed notebook. The default script grid includes M7, which was not run on real data for the reported results; reproduce the reported M0–M6 results by restricting the grid to M0–M6.
 
 ## Transparency
 
