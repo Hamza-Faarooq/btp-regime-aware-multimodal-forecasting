@@ -7,7 +7,7 @@ This repository contains the implementation and experimental record for a bachel
 
 The central premise of the study is that reported predictive performance can depend not only on the model architecture, but also on **how the experiment is constructed and evaluated**. The project therefore treats evaluation protocol as a first-class experimental variable and examines whether financial news contributes information beyond historical market data, particularly during periods of elevated market stress.
 
----
+---   
 
 ## Research Questions
 
