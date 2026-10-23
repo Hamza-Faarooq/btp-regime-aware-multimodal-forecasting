@@ -38,7 +38,7 @@ def seed_gap(model, pa, pb, n=2000):
     d = [rng.choice(a, len(a)).mean() - rng.choice(b, len(b)).mean() for _ in range(n)]
     return a.mean() - b.mean(), *np.percentile(d, [2.5, 97.5])
 rows = []
-for m in ["M1", "M2", "M3", "M4", "M5", "M6", "M7"]:
+for m in [m for m in ["M1", "M2", "M3", "M4", "M5", "M6", "M7"] if m in set(T.model)]:
     for pa in ["P1", "P2"]:
         e, lo, hi = seed_gap(m, pa, "P3"); rows.append(dict(model=m, gap=f"{pa} - P3", est=e, lo=lo, hi=hi))
 gaps = pd.DataFrame(rows).round(3); print("\nOptimistic performance gap (positive = looser protocol scores higher):\n", gaps)
@@ -48,7 +48,7 @@ fig, ax = plt.subplots(figsize=(11, 4.2)); ms = [m for m in ["M1", "M2", "M3", "
 for k, (p, c) in enumerate(zip(["P1", "P2", "P3"], ["#c44e52", "#dd8452", "#4c72b0"])):
     mu = [T[(T.model == m) & (T.protocol == p)].macro_f1.mean() for m in ms]; sd = [T[(T.model == m) & (T.protocol == p)].macro_f1.std() for m in ms]
     ax.bar(np.arange(len(ms)) + (k - 1) * w, mu, w, yerr=sd, capsize=2, color=c, label={"P1": "P1 random split, fit on all", "P2": "P2 chronological, fit on all", "P3": "P3 strict (train-only fit)"}[p])
-ax.axhline(T[T.model == "M0r"].macro_f1.mean(), color="k", ls=":", lw=1, label="random-guess floor")
+ax.axhline(T[T.model == "M0r"].macro_f1.mean(), color="k", ls=":", lw=1, label="random-guess floor (mean of M0r over protocols, ~0.33)")
 ax.set_xticks(range(len(ms))); ax.set_xticklabels([NAME[m] for m in ms], rotation=15); ax.set_ylabel("Test Macro-F1 (mean +/- sd over seeds)")
 ax.set_ylim(0.2, None); ax.legend(fontsize=8); ax.set_title("Evaluation protocol vs apparent performance"); plt.tight_layout(); plt.savefig(FIG / f"fig_protocol_audit{SUF}.png", dpi=200); plt.show()
 
@@ -58,7 +58,7 @@ ids = np.sort(p3.id.unique()); seeds = sorted(p3.seed.unique())
 base = p3.drop_duplicates("id").set_index("id").loc[ids]
 yt = base.y_true.to_numpy().astype(int); rg = base.regime_p3.to_numpy().astype(int); dt = pd.to_datetime(base.date.to_numpy())
 PR = {m: np.stack([p3[(p3.model == m) & (p3.seed == s)].set_index("id").loc[ids, "y_pred"].to_numpy().astype(int) for s in seeds])
-      for m in NAME if m != "M0"}
+      for m in NAME if m != "M0" and m in set(p3.model)}
 print("P3 test rows:", len(ids), "| seeds:", len(seeds), "| rows per regime:", {REG_NAMES[r]: int((rg == r).sum()) for r in range(3)})
 
 def level(m, idx): return float(np.mean([f1m(yt[idx], PR[m][s][idx]) for s in range(len(seeds))]))

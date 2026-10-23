@@ -3,19 +3,19 @@
 \section{Transparency Statement}\label{app:transparency}
 \begin{itemize}
 \item The primary models (M0--M5) and the three protocols were specified before running the experiments. The random-guess baseline M0r and the sentiment model M6 were added after a pilot run showed that the news-only and price-plus-embedding models overfit; results for both are reported regardless of outcome.
-\item The number of seeds was increased from 3 to 10 after observing that seed-to-seed variation was as large as the effects of interest. In the 3-seed pilot, M6 appeared stronger (about 0.503); with 10 seeds the value was 0.482 and the difference to M1 was not significant, so the 10-seed result is the one reported. No hyper-parameters were changed.
+\item The number of seeds was increased from 3 to 10 after observing that seed-to-seed variation was as large as the effects of interest. In the 3-seed pilot, M6 appeared stronger (about 0.503); with 10 seeds the value was 0.482 and the difference to M1 was not significant, so the 10-seed result is the one reported. No hyper-parameters were changed; pilot outputs were not saved, so the 3-seed value and this statement cannot be independently verified.
 \item Price inputs were converted to scale-free features before any model was run, because raw price levels drift over the sample.
 \item Up to 50 headlines per day were sampled at random (fixed seed) to bound compute and reduce volume differences across periods.
 \item Fifteen early rows without 20 days of history were excluded so that all models use the same samples.
 \item The label alignment (next-trading-day close-to-close return) was verified empirically on 2{,}110 rows.
-\item About 24 pairwise comparisons were examined (4 comparisons $\times$ 6 groups).
+\item 24 pairwise comparisons were examined (4 comparisons $\times$ 6 groups; 4 intervals exclude zero) together with 12 protocol-gap intervals (3 exclude zero).
 \item M7 and the $\mathrm{LAG}=1$ option exist in the code but were not run on real data.
 \item \textbf{Use of tools.} AI-based assistants were used during the project for planning, code drafting and wording suggestions. All experiments were run by the author, and the reported numbers are those produced by the executed notebook.
 \end{itemize}
 
 \section{Reproducibility}
 The code, executed notebook, raw cell outputs and figure-generating scripts are in the project repository
-(\texttt{github.com/Hamza-Faarooq/btp-regime-aware-multimodal-forecasting}). The reported results were produced by the executed Google Colab notebook and its saved outputs. The repository also contains modular scripts for data preparation, regime assignment, FinBERT encoding, model training and analysis. The full 270-run script grid includes M7, but M7 was not evaluated on real data for the reported results; the reported real-data grid covers M0--M6 across three protocols and ten seeds. Random seeds are fixed for model initialisation (0--9), headline sampling (1234), $k$-means (0), and the bootstrap analysis. The modular command-line path was tested on a synthetic mock dataset; a clean end-to-end reproduction from raw data has not yet been independently verified.
+(\texttt{github.com/Hamza-Faarooq/btp-regime-aware-multimodal-forecasting}). The reported results were produced by the executed Google Colab notebook and its saved outputs. The repository also contains modular scripts for data preparation, regime assignment, FinBERT encoding, model training and analysis. The script's default grid (9 models $\times$ 3 protocols $\times$ 10 seeds = 270 evaluations) includes M7, but M7 was not evaluated on real data for the reported results; the reported real-data grid covers M0--M6 across three protocols and ten seeds. Random seeds are fixed for model initialisation (0--9), headline sampling (1234), $k$-means (0), and the bootstrap analysis. The notebook requires Python 3.12 or later. The modular scripts were smoke-tested on a small synthetic dataset (no results were derived from it); a clean end-to-end reproduction from raw data has not yet been independently verified.
 
 \section*{List of Important Symbols}
 \addcontentsline{toc}{section}{List of Important Symbols}

@@ -175,7 +175,7 @@ def run(model_id, protocol, seed):
     return mrows, prow
 
 # %% Cell 4: run a grid and summarise
-def run_grid(protocols, models=("M0", "M0r", "M1", "M2", "M3", "M4", "M5", "M6", "M7"), seeds=SEEDS):
+def run_grid(protocols, models=("M0", "M0r", "M1", "M2", "M3", "M4", "M5", "M6"), seeds=SEEDS):
     mrows, preds, t0 = [], [], time.time()
     for p in protocols:
         for m in models:
@@ -197,11 +197,14 @@ def gate_summary(P, protocol="P3", part="test"):
     g = P[(P.model == "M7") & (P.protocol == protocol) & (P.part == part)]
     return g.groupby(["seed", "regime_used"]).gate_price.mean().unstack().agg(["mean", "std"]).round(3)
 
-# --- run all three protocols: 10 seeds x 8 models (M0, M0r, M1-M6) x 3 protocols = 240 runs; M7 is implemented but was not run (~6-8 min on CPU).
+# --- run all three protocols: 10 seeds x 8 models (M0, M0r, M1-M6) x 3 protocols = 240 model-protocol-seed evaluations
+# (180 trained networks M1-M6 + 60 non-trained baseline evaluations M0/M0r), ~5 min on CPU in the recorded run.
+# M7 is implemented but was never run on real data; pass models=(..., "M7") to run_grid to include it (270 evaluations).
 # With LAG=0, M0-M6 reproduce the reported 10-seed numbers; M7 is optional and was not part of the reported results.
 if __name__ == "__main__":
     M_all, P_all = run_grid(["P1", "P2", "P3"])
     for p in ["P3", "P2", "P1"]:
         print(p, "TEST\n", summarize(M_all, p, "test"))
     print("P3 VALID\n", summarize(M_all, "P3", "valid")); print("P3 TRAIN\n", summarize(M_all, "P3", "train"))
-    print("M7 gate on P3 test rows (columns = regime 0/1/2 = Low/Mid/High-vol):\n", gate_summary(P_all))
+    if (P_all.model == "M7").any():
+        print("M7 gate on P3 test rows (columns = regime 0/1/2 = Low/Mid/High-vol):\n", gate_summary(P_all))

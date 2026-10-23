@@ -32,7 +32,8 @@ FINBERT_MODEL = "ProsusAI/finbert"
 FINBERT_MAX_LEN = 64
 FINBERT_BATCH_SIZE = 256
 
-BOOTSTRAP_RESAMPLES = 1000
+BOOTSTRAP_RESAMPLES = 1000        # row bootstrap for model differences (notebook NBOOT)
+SEED_BOOTSTRAP_RESAMPLES = 2000   # bootstrap over per-seed scores for protocol gaps (notebook seed_gap n)
 STRESS_START = "2020-02-01"
 STRESS_END = "2020-04-30"
 REGIME_NAMES = ["Low-vol", "Mid-vol", "High-vol"]

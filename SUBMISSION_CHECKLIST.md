@@ -4,6 +4,9 @@ This checklist is intentionally limited to finishing and validating the already 
 
 ## Required before submission
 
+- [ ] **Confirm the registered title** (LaTeX title page/certificate and README now use "How Much Do Evaluation Choices Inflate Multimodal Market Prediction, and Does News Help Under Market Stress?"; the earlier PDF and deck used "Regime-Aware Multimodal Deep Learning..."). Make title page, certificate, README and slide 1 identical.
+- [ ] Recompile the PDF **after** all text edits; the committed PDF must match `report/latex/`.
+
 - [ ] Compile `report/latex/main.tex` from the `report/latex/` directory twice with pdfLaTeX; resolve missing figures, undefined references, overfull pages and table-of-contents issues.
 - [ ] Replace `report/BTP_Report.pdf` with the newly compiled PDF only after visually checking every page.
 - [ ] Verify title, student details, degree/program, supervisor name, and institute-required certificate/declaration format. Do not add a supervisor signature without approval.

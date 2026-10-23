@@ -103,7 +103,7 @@ An additional gated variant (M7), in which a regime-conditioned gate $g=\sigma(W
 \begin{defbox}
 \textbf{Frozen settings (never tuned on the test set).} Adam optimiser, learning rate $10^{-3}$, weight decay $10^{-4}$, batch size 64, at most 50 epochs, early stopping with patience 8 on \emph{validation} Macro-F1, class-weighted cross-entropy (weights inversely proportional to training class counts), input clipping at $\pm5$ standard deviations. LSTM hidden size 64, dropout 0.2, news output 64, regime embedding 8. Ten seeds (0--9).
 \end{defbox}
-Hyper-parameters were chosen once, before the main experiments, from conventional values and were not searched. The checkpoint with the best validation Macro-F1 is used for the reported test predictions. The random guesser M0r draws labels uniformly at random with the run's seed.
+Hyper-parameters were set from conventional values and were not searched; pilot outputs were not saved, so this cannot be independently verified. The checkpoint with the best validation Macro-F1 is used for the reported test predictions. The random guesser M0r draws labels uniformly at random with the run's seed.
 
 \subsection{Evaluation Protocols}\label{sec:protocols}
 The same models are evaluated under three protocols (Figure~\ref{fig:protocols}) that differ in how data are split and which rows are used to fit preprocessing and regimes.
@@ -120,7 +120,7 @@ P3 (primary) & chronological & train rows only & train rows only\\
 \end{tabular}
 \caption{Evaluation protocols.}
 \end{table}
-P1 is deliberately invalid and serves as a permissive reference; P3 is the primary benchmark for all scientific conclusions. In P1 a different random split is drawn for each seed with the same train/validation/test sizes, so the P1 test sample differs from the P2/P3 test sample; the gaps between protocols therefore mix leakage and sampling effects (Chapter~\ref{ch:discussion}).
+P1 is deliberately invalid and serves as a permissive reference; P3 is the primary benchmark for all scientific conclusions. Validation rows are used only for early stopping and checkpoint selection. In P1 a different random split is drawn for each seed with the same train/validation/test sizes, so the P1 test sample differs from the P2/P3 test sample; the gaps between protocols therefore mix leakage and sampling effects (Chapter~\ref{ch:discussion}).
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_protocol_design.png}
@@ -128,10 +128,10 @@ P1 is deliberately invalid and serves as a permissive reference; P3 is the prima
 \end{figure}
 
 \subsection{Statistical Inference}
-\paragraph{Protocol gaps (RQ1).} For each model the gap is the difference between the mean test Macro-F1 under a looser protocol and under P3. A 95\% interval is obtained by bootstrapping the 10 per-seed scores of each protocol separately (1{,}000 resamples).
-\paragraph{News value (RQ2).} For each group (all test rows, each regime, the stress window, and its complement), the seed-averaged predictions of each model are evaluated on test rows resampled with replacement (1{,}000 draws, the same resample for every model), and the difference in Macro-F1 between two models is computed on each resample. The 2.5th and 97.5th percentiles give the interval. These intervals describe row-resampling uncertainty conditional on the seed-averaged predictions. Since observations are temporally dependent and price windows overlap, treating test rows as independently resampled may understate uncertainty; a block bootstrap is left for future work.
+\paragraph{Protocol gaps (RQ1).} For each model the gap is the difference between the mean test Macro-F1 under a looser protocol and under P3. A 95\% interval is obtained by resampling the 10 per-seed scores of each protocol independently (2{,}000 resamples, seed 0). These intervals reflect seed-to-seed variability only (initialisation and, for P1, the random split); they exclude test-row sampling uncertainty and ignore the pairing of seeds across protocols. P2 and P3 share the same test rows, so P2$-$P3 is the cleaner contrast.
+\paragraph{News value (RQ2).} For each group (all test rows, each regime, the stress window, and its complement), the seed-averaged predictions of each model are evaluated on test rows resampled with replacement (1{,}000 draws, the same resample for every model), and the difference in Macro-F1 between two models is computed on each resample. The 2.5th and 97.5th percentiles give the interval. The statistic resampled is the mean over the ten seeds of the per-seed Macro-F1 on each resample. These intervals describe row-resampling uncertainty only. Since observations are temporally dependent and price windows overlap, treating test rows as independently resampled may understate uncertainty; a block bootstrap is left for future work.
 \paragraph{Stress window.} The stress window is 1 February to 30 April 2020 and contains 50 test rows; the regime groups contain 125 (Low-vol), 113 (Mid-vol) and 79 (High-vol) test rows.
-\paragraph{Multiplicity.} About 24 pairwise comparisons are reported; an isolated interval that excludes zero is therefore treated as a hypothesis, not as a finding.
+\paragraph{Multiplicity.} Twenty-four news and regime comparisons (4 comparisons $\times$ 6 groups) and 12 protocol-gap intervals are tested against zero; the groups are nested, so these are not independent, and an isolated interval that excludes zero is therefore treated as a hypothesis, not as a finding.
 
 \subsection{Implementation}
-All code is in Python with PyTorch, scikit-learn, pandas and the Hugging Face \texttt{transformers} library, and is available in the accompanying repository. FinBERT embedding was run on a GPU; models were trained on CPU in Google Colab. Training all models under all three protocols for ten seeds (240 runs) takes a few minutes on a CPU.
+All code is in Python with PyTorch, scikit-learn, pandas and the Hugging Face \texttt{transformers} library, and is available in the accompanying repository. FinBERT embedding was run on a GPU; models were trained on CPU in Google Colab. Training all models under all three protocols for ten seeds (240 model--protocol--seed evaluations: 180 trained networks plus 60 non-trained baseline evaluations) took about five minutes on a CPU in the recorded run.

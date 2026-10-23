@@ -1,5 +1,5 @@
-# Regime-Aware Multimodal Deep Learning for Financial Market Forecasting
-### Evaluation robustness and regime-dependent news value
+# How Much Do Evaluation Choices Inflate Multimodal Market Prediction, and Does News Help Under Market Stress?
+### Evaluation robustness and regime-dependent news value (BTP, IIT Kharagpur)
 
 ## Undergraduate Thesis — IIT Kharagpur
 
@@ -67,7 +67,7 @@ Full tables with confidence intervals: [`results/EXECUTED_RESULTS.md`](results/E
 * **Price input:** 10 trading days × 12 scale-free features from a daily series recovered from the dataset's contexts. **News:** up to 50 sampled headlines per day through frozen ProsusAI/finbert (768-d mean pool, plus 3 sentiment probabilities). **Regimes:** 3-state KMeans on 20-day return and log volatility, named Low/Mid/High-vol by volatility rank.
 * **Protocols:** P1 random split with preprocessing on all rows (deliberately invalid); P2 chronological with preprocessing on all rows; P3 chronological with train-only preprocessing (primary).
 * **Training (frozen, never tuned on test):** LSTM 64, dropout 0.2, news MLP 768→64, regime embedding 8, lr 1e-3, weight decay 1e-4, batch 64, ≤ 50 epochs, patience 8 on validation Macro-F1, class-weighted loss, 10 seeds.
-* **Inference:** bootstrap over test rows (1,000 draws) for differences; seed bootstrap for protocol gaps.
+* **Inference:** bootstrap over test rows (1,000 draws) for model differences; bootstrap over the 10 per-seed scores (2,000 draws, independent per protocol) for protocol gaps. Both are exploratory; neither handles temporal dependence of test days.
 
 ## Repository map
 
@@ -78,7 +78,7 @@ results/        EXECUTED_RESULTS.md, logs/    (raw cell outputs)
 figures/        eda_overview, regimes_overview, fig_protocol_audit, fig_regime_news_value, fig_architecture, fig_protocol_design, fig_dataset_timeline
 data/           STEP1_AUDIT.md                (data files are regenerated, not committed)
 literature/     references.md, papers.csv     (reading list, see status inside)
-report/         results_draft.md, README.md
+report/         BTP_Report.pdf, latex/ (source), README.md
 presentation/   slide_outline.md
 config.py       reference copy of the frozen settings
 ```
@@ -91,11 +91,11 @@ export BTP_ROOT=/path/to/workdir      # default: /content/drive/MyDrive/btp (Col
 python src/01_data.py   # downloads NIFTY, builds the daily series, audits timing
 python src/02_regimes.py
 python src/03_finbert.py   # GPU recommended
-python src/04_models.py    # 240 runs (8 models x 3 protocols x 10 seeds), ~6-8 min on CPU
+python src/04_models.py    # reported grid: M0, M0r, M1-M6 = 240 evaluations (180 trained + 60 baseline), ~5 min on CPU
 python src/05_analysis.py
 python src/06_diagrams.py  # no data needed
 ```
-The scripts are written as `# %%` cells and were run cell by cell in Colab. The command-line path was tested end-to-end only on a synthetic mock dataset; the reported numbers come from the executed notebook. The default script grid includes M7, which was not run on real data for the reported results; reproduce the reported M0–M6 results by restricting the grid to M0–M6.
+The scripts are written as `# %%` cells and were run cell by cell in Colab. The scripts were only smoke-tested on a small synthetic dataset (no results derived from it); the reported numbers come from the executed notebook, which needs Python ≥ 3.12 (cell 4). `src/04_models.py` defaults to M0–M6 (240 evaluations); M7 is implemented but was never run on real data, and the LAG=1 option was not run either. The class-balance diagnostics (Table 5.7) exist only in the notebook.
 
 ## Transparency
 

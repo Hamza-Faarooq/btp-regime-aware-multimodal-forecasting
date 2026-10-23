@@ -25,7 +25,7 @@ def arrow(ax, x0, y0, x1, y1, color=None, rad=0.0):
 # ---------------------------------------------------------------- 1. architecture
 fig, ax = plt.subplots(figsize=(13.5, 7.6)); ax.set_xlim(0, 100); ax.set_ylim(0, 58); ax.axis("off")
 ax.text(50, 56, "Model family: one small network, switchable information sources", ha="center", fontsize=14, fontweight="bold")
-for x, t in [(11, "Inputs (known before the predicted move)"), (41, "Encoders"), (69, "Fusion"), (91.5, "Output")]:
+for x, t in [(11, "Inputs (dated up to day t)"), (41, "Encoders"), (69, "Fusion"), (91.5, "Output")]:
     ax.text(x, 51.5, t, ha="center", fontsize=10, color=C["grey"], fontweight="bold")
 rows = {"price": 39, "news": 26, "regime": 13}
 box(ax, 1, rows["price"], 21, 8, "Market window\n10 trading days x 12\nscale-free features\n(returns, range, volume, indicators)", C["price"], fs=8.8)
@@ -52,7 +52,7 @@ fig, ax = plt.subplots(figsize=(13.5, 5.6)); ax.set_xlim(0, 100); ax.set_ylim(0,
 ax.text(50, 42, "Three evaluation protocols applied to the same models", ha="center", fontsize=14, fontweight="bold")
 specs = [("P1  random split\n(deliberately invalid)", C["out"], "random", "all rows", "Overlapping windows and persistent regimes\nput near-copies of test rows in training."),
          ("P2  chronological split,\npreprocessing on all data", "#dd8452", "chrono", "all rows", "Temporal order respected, but scalers and\nregime clusters use test-period data."),
-         ("P3  chronological split,\ntrain-only preprocessing (strict)", C["price"], "chrono", "train rows only", "Primary benchmark: nothing from validation\nor test shapes scalers, clusters or weights.")]
+         ("P3  chronological split,\ntrain-only preprocessing (strict)", C["price"], "chrono", "train rows only", "Primary benchmark: nothing from validation or test\nshapes scalers or clusters; validation only selects\nthe early-stopping checkpoint.")]
 for j, (title, col, split, fit, note) in enumerate(specs):
     x0 = 2 + j * 33
     ax.text(x0 + 14, 37, title, ha="center", va="center", fontsize=10.5, fontweight="bold", color=col, linespacing=1.3)
