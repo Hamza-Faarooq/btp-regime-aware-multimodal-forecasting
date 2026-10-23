@@ -8,3 +8,10 @@ data/*.npy
 data/*.joblib
 results/*.parquet
 results/**/*.parquet
+
+# LaTeX build output (compiled PDF lives in report/BTP_Report.pdf)
+report/latex/main.aux
+report/latex/main.log
+report/latex/main.out
+report/latex/main.toc
+report/latex/main.pdf
