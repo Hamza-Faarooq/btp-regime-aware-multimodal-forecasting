@@ -91,7 +91,7 @@ export BTP_ROOT=/path/to/workdir      # default: /content/drive/MyDrive/btp (Col
 python src/01_data.py   # downloads NIFTY, builds the daily series, audits timing
 python src/02_regimes.py
 python src/03_finbert.py   # GPU recommended
-python src/04_models.py    # 270 runs, ~6-8 min on CPU
+python src/04_models.py    # 240 runs (8 models x 3 protocols x 10 seeds), ~6-8 min on CPU
 python src/05_analysis.py
 python src/06_diagrams.py  # no data needed
 ```

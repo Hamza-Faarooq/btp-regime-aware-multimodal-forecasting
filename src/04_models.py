@@ -197,7 +197,7 @@ def gate_summary(P, protocol="P3", part="test"):
     g = P[(P.model == "M7") & (P.protocol == protocol) & (P.part == part)]
     return g.groupby(["seed", "regime_used"]).gate_price.mean().unstack().agg(["mean", "std"]).round(3)
 
-# --- run all three protocols: 10 seeds x 9 models x 3 protocols = 270 runs (~6-8 min on CPU).
+# --- run all three protocols: 10 seeds x 8 models (M0, M0r, M1-M6) x 3 protocols = 240 runs; M7 is implemented but was not run (~6-8 min on CPU).
 # With LAG=0, M0-M6 reproduce the reported 10-seed numbers; M7 is optional and was not part of the reported results.
 if __name__ == "__main__":
     M_all, P_all = run_grid(["P1", "P2", "P3"])
