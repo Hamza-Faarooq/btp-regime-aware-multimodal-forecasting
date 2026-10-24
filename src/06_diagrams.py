@@ -23,28 +23,25 @@ def arrow(ax, x0, y0, x1, y1, color=None, rad=0.0):
     ax.add_patch(FancyArrowPatch((x0, y0), (x1, y1), arrowstyle="-|>", mutation_scale=14, lw=1.5, color=color or C["ink"], connectionstyle=f"arc3,rad={rad}", shrinkA=0, shrinkB=0))
 
 # ---------------------------------------------------------------- 1. architecture
-fig, ax = plt.subplots(figsize=(13.5, 7.6)); ax.set_xlim(0, 100); ax.set_ylim(0, 58); ax.axis("off")
-ax.text(50, 56, "Model family: one small network, switchable information sources", ha="center", fontsize=14, fontweight="bold")
-for x, t in [(11, "Inputs (dated up to day t)"), (41, "Encoders"), (69, "Fusion"), (91.5, "Output")]:
-    ax.text(x, 51.5, t, ha="center", fontsize=10, color=C["grey"], fontweight="bold")
-rows = {"price": 39, "news": 26, "regime": 13}
-box(ax, 1, rows["price"], 21, 8, "Market window\n10 trading days x 12\nscale-free features\n(returns, range, volume, indicators)", C["price"], fs=8.8)
-box(ax, 1, rows["news"], 21, 8, "Daily headlines\n(up to 50 sampled per day,\nfixed seed)", C["news"], fs=8.8)
-box(ax, 1, rows["regime"], 21, 8, "Regime features\n20-day return and\n20-day volatility", C["regime"], fs=8.8)
-box(ax, 30, rows["price"], 23, 8, "LSTM (64 units)\nlast hidden state\n+ dropout 0.2", C["price"], bold=False)
-box(ax, 30, rows["news"] - 1.5, 23, 11, "Frozen FinBERT (ProsusAI)\nmean-pool -> 768-d\nLinear 768->64, ReLU, dropout\n(M6: 3 sentiment probabilities\ninstead of the 768-d vector)", C["news"], fs=8.8)
-box(ax, 30, rows["regime"], 23, 8, "KMeans, k = 3\n(fit on training rows in P3)\nEmbedding 3 -> 8", C["regime"], fs=8.8)
-for k in rows: arrow(ax, 23.2, rows[k] + 4, 29.2, rows[k] + 4 if k != "news" else rows[k] + 4, C[k])
-box(ax, 61, 22, 17, 24, "Concatenate\nthe active branches\n\nM1 price\nM2 price + news\nM3 + regime\nM4 news only\nM5 regime only\nM6 price + sentiment", C["fuse"], fs=8.8)
-for k in rows: arrow(ax, 54.2, rows[k] + 4, 60.2, 34 if k != "regime" else 28, C[k], rad=0.0)
-box(ax, 84, 29, 15, 11, "MLP head\nLinear -> 64, ReLU,\ndropout, Linear 64 -> 3", C["fuse"], fs=8.6)
-arrow(ax, 79.2, 34, 83.2, 34, C["fuse"])
-box(ax, 84, 14, 15, 10, "Fall / Neutral / Rise\nnext-day close-to-close\nmove, +/-0.5% bands", C["out"], fs=8.2)
-arrow(ax, 91.5, 28.2, 91.5, 24.9, C["out"])
-ax.text(50, 6.2, "Baselines: M0 always predicts the training majority class; M0r guesses uniformly at random.   "
-        "All hyper-parameters are fixed in advance; early stopping uses validation Macro-F1 only; 10 seeds.", ha="center", fontsize=8.8, color=C["ink"])
-ax.text(50, 3.4, "Optional extension implemented in src/04_models.py (not part of the reported results): M7 replaces concatenation by a regime-conditioned gate  "
-        "z = g*z_price + (1-g)*z_news.", ha="center", fontsize=8.4, color=C["grey"], style="italic")
+# Drawn at the size it is printed (about 8.4 in wide) so that text stays >= ~7 pt on the page; explanatory notes are in the report caption.
+fig, ax = plt.subplots(figsize=(8.4, 5.0)); ax.set_xlim(0, 100); ax.set_ylim(4, 58); ax.axis("off")
+ax.text(50, 56, "Model family: one network, switchable inputs", ha="center", fontsize=12, fontweight="bold")
+for x, t in [(12, "Inputs"), (42, "Encoders"), (70, "Fusion"), (91.5, "Output")]:
+    ax.text(x, 51.5, t, ha="center", fontsize=9.5, color=C["grey"], fontweight="bold")
+rows = {"price": 37, "news": 22, "regime": 7}
+box(ax, 0.5, rows["price"], 23, 11, "Price window\n10 days x 12\nscale-free features", C["price"], fs=8.8)
+box(ax, 0.5, rows["news"], 23, 11, "Daily headlines\n(up to 50 per day,\nfixed seed)", C["news"], fs=8.8)
+box(ax, 0.5, rows["regime"], 23, 11, "Regime features\n20-day return and\n20-day volatility", C["regime"], fs=8.8)
+box(ax, 29, rows["price"], 26, 11, "LSTM (64 units)\nlast hidden state\ndropout 0.2", C["price"], fs=8.8)
+box(ax, 29, rows["news"], 26, 11, "Frozen FinBERT\n768-d mean-pool ->\nLinear 768->64, ReLU", C["news"], fs=8.8)
+box(ax, 29, rows["regime"], 26, 11, "KMeans (k = 3)\nembedding 3 -> 8", C["regime"], fs=8.8)
+for k in rows: arrow(ax, 24.6, rows[k] + 5.5, 28.2, rows[k] + 5.5, C[k])
+box(ax, 61, 15, 17, 26, "Concatenate\nactive branches\n\nM1 price\nM2 + FinBERT\nM3 + regime\nM4 news only\nM5 regime only\nM6 + sentiment", C["fuse"], fs=8.6)
+for k in rows: arrow(ax, 56.2, rows[k] + 5.5, 60.2, 28 + (rows[k] - 22) * 0.35, C[k])
+box(ax, 84, 29, 15.5, 11, "MLP head\n64 -> 3", C["fuse"], fs=9)
+arrow(ax, 79.2, 34.5, 83.2, 34.5, C["fuse"])
+box(ax, 84, 11, 15.5, 12, "Fall / Neutral\n/ Rise\n(+/-0.5% bands)", C["out"], fs=8.6)
+arrow(ax, 91.7, 28.2, 91.7, 24.0, C["out"])
 fig.savefig(FIG / "fig_architecture.png", dpi=200, bbox_inches="tight", facecolor="white"); plt.close(fig)
 
 # ---------------------------------------------------------------- 2. protocol design

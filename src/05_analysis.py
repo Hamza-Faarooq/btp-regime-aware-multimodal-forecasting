@@ -105,7 +105,7 @@ for m in [m for m in ["M1", "M6"] if m in PR]:
 
 # %% Cell 3: print the result tables (paste these back)
 pd.set_option("display.width", 200)
-print("Macro-F1 levels with 95% bootstrap CI (P3 test; seed-averaged):")
+print("Macro-F1 levels with 95% bootstrap CI (P3 test; mean over seeds of per-seed Macro-F1):")
 print(levels.pivot(index="group", columns="model", values="f1").reindex([g for g, _ in groups]).round(3))
 print("\nDifferences (positive = second model better), 95% CI from resampling test rows:")
 print(diffs.assign(ci=lambda d: "[" + d.lo.astype(str) + ", " + d.hi.astype(str) + "]")[["group", "n", "comparison", "est", "ci"]].to_string(index=False))

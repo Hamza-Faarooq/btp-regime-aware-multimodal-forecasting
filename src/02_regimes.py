@@ -96,7 +96,7 @@ runs = pd.DataFrame([(NAMES[k], len(list(g))) for k, g in itertools.groupby(seq)
 print("\nRun length in trading days:\n", runs.groupby("regime")["run_len"].agg(["count", "mean", "median", "max"]).round(1))
 
 # %% Cell 6: figures
-fig, ax = plt.subplots(1, 2, figsize=(15, 4.4))
+fig, ax = plt.subplots(1, 2, figsize=(12, 4.6))  # drawn near print size; fonts below kept >= 10 pt
 d = daily.dropna(subset=["regime_p3"])
 for r in range(K):
     s = d[d["regime_p3"] == r]
@@ -104,7 +104,7 @@ for r in range(K):
 for sp, c in [("valid", "k"), ("test", "k")]:
     ax[0].axvline(df.loc[df["split"] == sp, "date"].min(), color=c, ls="--", lw=.8)
 ax[0].set_title("SPY close coloured by regime (train-only fit); dashed = valid/test start")
-ax[0].legend(markerscale=4)
+ax[0].legend(markerscale=4, fontsize=10)
 
 tr = df[is_train]
 for r in range(K):
@@ -113,7 +113,7 @@ for r in range(K):
 cen = m_p3["sc"].inverse_transform(m_p3["km"].cluster_centers_)
 ax[1].scatter(cen[:, 0], cen[:, 1], marker="X", s=140, c="k", label="centres")
 ax[1].set_xlabel("20-day return"); ax[1].set_ylabel("log 20-day volatility"); ax[1].set_title("Training rows in regime-feature space")
-ax[1].legend()
+ax[1].legend(fontsize=10)
 plt.tight_layout(); plt.savefig(FIG / f"regimes_overview{SUF}.png", dpi=200); plt.show()
 
 # %% Cell 7: save

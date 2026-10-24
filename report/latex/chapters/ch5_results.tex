@@ -79,7 +79,7 @@ M6 & \textbf{$-0.051$ [$-0.079$, $-0.019$]} & $-0.034$ [$-0.071$, 0.005]\\
 \end{tabular}
 \caption{Optimistic performance gap (looser protocol minus P3) with 95\% bootstrap intervals over seeds. Positive values mean the looser protocol scores higher. Intervals resample the ten seeds of each protocol independently; they exclude test-row uncertainty, and P1 also changes the test sample.}\label{tab:gaps}
 \end{table}
-\figpage{fig_protocol_audit.png}{\textwidth}{Test Macro-F1 under the three protocols and the protocol gaps.}
+\figpage{fig_protocol_audit.png}{\textwidth}{Test Macro-F1 under the three evaluation protocols (mean over ten seeds, error bars $\pm1$ s.d.; dotted line: mean random-guess score, about 0.33). The protocol gaps are in Table~\ref{tab:gaps}.}
 For the models that use lagged prices and/or news (M1--M4) the looser protocols did \emph{not} score reliably higher than the strict one; all eight intervals for M1--M4 include zero. The exception is the regime-only model M5, which scores higher under both looser protocols (+0.046 and +0.028). Two mechanisms could contribute and were not separated here: under P1 a random split places near neighbours of each test day in the training set, and under P1 and P2 fitting the clusters on all data lets test-period structure shape the regime labels. P2$-$P3 shares the test rows and is the cleaner contrast (+0.028, interval near zero). For M6 the strict protocol scored \emph{higher} than the random split. This reversal reinforces that the protocol gaps are model-dependent; because P1 changes the test sample across seeds, the observed gap also reflects sample composition and run-to-run variability, not leakage alone. Hypothesis H1 is therefore \textbf{not supported in general}, and only weakly and exploratorily suggested for the model that relies solely on a slowly varying state.
 
 \subsection{Value of News and Regime Information (RQ2)}\label{sec:regime-results}
@@ -99,7 +99,7 @@ Stress window & 50 & 0.316 & 0.473 & 0.448 & 0.450 & 0.471\\
 Outside stress & 267 & 0.334 & 0.451 & 0.391 & 0.416 & 0.467\\
 \bottomrule
 \end{tabular}
-\caption{Test Macro-F1 by group under P3 (seed-averaged predictions). Group sizes are small, so group-level values are noisy.}\label{tab:levels}
+\caption{Test Macro-F1 by group under P3 (mean over ten seeds of the per-seed Macro-F1 on the group's rows). Group sizes are small, so group-level values are noisy.}\label{tab:levels}
 \end{table}
 \begin{table}[H]
 \centering
@@ -119,13 +119,13 @@ Outside stress & 267 & \textbf{$-0.060$ [$-0.097$, $-0.017$]} & $+0.016$ [$-0.02
 \end{tabular}
 \caption{Differences in Macro-F1 (second minus first model) with 95\% bootstrap intervals from resampling test rows. Bold: interval excludes zero. For news and regime together versus price only, M3 $-$ M1 is $-0.033$ [$-0.069$, 0.001] overall. Rows are resampled as if independent; temporal dependence is ignored, so intervals are probably too narrow.}\label{tab:diffs}
 \end{table}
-\figpage{fig_regime_news_value.png}{\textwidth}{Test Macro-F1 and model differences by regime and stress window (strict protocol).}
+\figpage{fig_regime_news_value.png}{\textwidth}{Test Macro-F1 (left) and model differences (right) by regime and stress window under P3, with 95\% row-bootstrap intervals; error bars are the intervals of Tables~\ref{tab:levels} and~\ref{tab:diffs}.}
 Four findings follow.
 \begin{enumerate}
 \item \textbf{The FinBERT embedding hurts.} Adding it to the price model reduces Macro-F1 by 0.050 with an interval excluding zero; outside the stress window the reduction is 0.060.
 \item \textbf{A low-capacity news input is about neutral.} Three sentiment scores give $+0.016$ overall with an interval including zero. The only interval excluding zero (Mid-vol, $+0.054$) is one of 24 comparisons and is treated as a hypothesis.
 \item \textbf{The regime input adds little.} Adding the regime id to the price-plus-embedding model changes Macro-F1 by $+0.017$ (interval includes zero); the best news-plus-regime model (M3) does not beat price only. Outside the stress window the regime input gives $+0.024$ [0.002, 0.047], one of four intervals excluding zero (with M2$-$M1 overall and outside stress, and M6$-$M1 in Mid-vol); all four are treated as exploratory.
-\item \textbf{No sign of extra news value in the stress window.} In 1 February--30 April 2020 no model with news information differs reliably from price only. With only 50 rows the intervals are wide (about $\pm0.05$ to $\pm0.09$), so moderate effects cannot be excluded.
+\item \textbf{No reliable extra news value detected in the stress window.} In 1 February--30 April 2020 no model with news information differs reliably from price only. With only 50 rows the intervals are wide (about $\pm0.05$ to $\pm0.09$), so moderate effects cannot be excluded.
 \end{enumerate}
 
 \subsection{The Stress Window}\label{sec:stress}

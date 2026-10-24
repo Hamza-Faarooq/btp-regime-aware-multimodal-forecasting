@@ -6,6 +6,7 @@ Nothing is re-typed or rounded further. M7 (gated fusion) and the LAG = 1 run we
 > **Reading notes (added after the consistency audit; raw outputs below are untouched).**
 > * The "15 missing / expected 2,689 trading days" line in the step-1 audit log comes from a US-federal-holiday approximation. Against the NYSE calendar only 2018-12-31 is absent; the other 14 listed dates are market closures.
 > * The seed-bootstrap intervals use 2,000 resamples (`seed_gap`, n=2000); the row-bootstrap intervals use 1,000.
+> * "seed-averaged" in the printed headings means: the mean over the ten seeds of the per-seed Macro-F1 (predictions are never averaged across seeds). The bootstrap resamples test rows and recomputes each seed's Macro-F1 on every resample.
 > * 240 evaluations = 8 models x 3 protocols x 10 seeds, of which 180 are trained networks (M1-M6) and 60 are non-trained baselines (M0, M0r).
 
 Conventions: Macro-F1 is the primary metric. Seeds 0-9. P3 = strict chronological protocol. Class order Fall / Neutral / Rise.
