@@ -27,7 +27,7 @@ Name & Definition\\
 \texttt{c\_sma30}, \texttt{c\_sma60} & close/30-day (60-day) simple moving average $-1$\\
 \bottomrule
 \end{tabular}
-\caption{The 12 scale-free price features. Indicator columns (MACD, RSI, CCI, DX, Bollinger bands, moving averages) are those supplied by the dataset.}\label{tab:features}
+\caption[The 12 scale-free price features]{The 12 scale-free price features. Indicator columns (MACD, RSI, CCI, DX, Bollinger bands, moving averages) are those supplied by the dataset.}\label{tab:features}
 \end{table}
 Features are standardised with a mean and standard deviation estimated on the rows allowed by the protocol (Section~\ref{sec:protocols}) and clipped to $\pm5$ standard deviations to limit the effect of extreme 2020 values.
 
@@ -71,7 +71,7 @@ High-vol & 0.016 & 0.109 & 0.875\\
 \end{tabular}
 \caption{Daily regime transition matrix (strict-protocol model).}\label{tab:transition}
 \end{table}
-\begin{figure}[H]\centering\includegraphics[width=0.95\textwidth]{regimes_overview_a.png}\\[4pt]\includegraphics[width=0.95\textwidth]{regimes_overview_b.png}\caption{Top: SPY close coloured by regime (strict fit); dashed lines mark the validation and test starts. Bottom: training rows in regime-feature space with the three cluster centres.}\end{figure}
+\begin{figure}[H]\centering\includegraphics[width=0.95\textwidth]{regimes_overview_a.png}\\[4pt]\includegraphics[width=0.95\textwidth]{regimes_overview_b.png}\caption[SPY close by regime and regime-feature space]{Top: SPY close coloured by regime (strict fit); dashed lines mark the validation and test starts. Bottom: training rows in regime-feature space with the three cluster centres.}\end{figure}
 
 Across all rows, the label mix differs by regime: the share of Neutral next days is 64.2\% in Low-vol, 54.9\% in Mid-vol and 28.8\% in High-vol, where Rise (40.6\%) and Fall (30.6\%) are more frequent. This descriptive association is consistent with recent volatility being related to the next-day class distribution, but it does not establish that a model primarily predicts move magnitude rather than direction.
 
@@ -124,7 +124,7 @@ P1 is deliberately invalid and serves as a permissive reference; P3 is the prima
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_protocol_design.png}
-\caption{The three evaluation protocols. Dark squares in the lower strip mark the rows used to fit scalers and regime clusters.}\label{fig:protocols}
+\caption[The three evaluation protocols]{The three evaluation protocols. Dark squares in the lower strip mark the rows used to fit scalers and regime clusters.}\label{fig:protocols}
 \end{figure}
 
 \subsection{Statistical Inference}
