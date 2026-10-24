@@ -92,6 +92,17 @@ for lab, sub in groups:
 levels = pd.DataFrame(L).round(3); diffs = pd.DataFrame(D).round(3)
 levels.to_csv(RES / f"p3_levels_by_group{SUF}.csv", index=False); diffs.to_csv(RES / f"p3_diffs_by_group{SUF}.csv", index=False)
 
+# %% Cell 2b: class-balance diagnostic (report Table 5.7): predicted class shares and per-class F1, P3 test, M1/M2/M3/M6
+for m in [m for m in ["M1", "M2", "M3", "M6"] if m in PR]:
+    print(m, "predicted share Fall/Neutral/Rise:", np.round([np.mean(PR[m] == k) for k in range(3)], 3))
+print("true test share:", np.round([np.mean(yt == k) for k in range(3)], 3))
+
+def f1c(y, p):
+    cm = np.bincount(y*3 + p, minlength=9).reshape(3, 3); tp = np.diag(cm); den = cm.sum(0) + cm.sum(1)
+    return 2*tp/np.maximum(den, 1)
+for m in [m for m in ["M1", "M6"] if m in PR]:
+    print(m, "per-class F1 (Fall/Neutral/Rise):", np.mean([f1c(yt, PR[m][s]) for s in range(len(seeds))], axis=0).round(3))
+
 # %% Cell 3: print the result tables (paste these back)
 pd.set_option("display.width", 200)
 print("Macro-F1 levels with 95% bootstrap CI (P3 test; seed-averaged):")

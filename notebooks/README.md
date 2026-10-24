@@ -8,7 +8,7 @@ Things to know before relying on it:
 * **Python >= 3.12 is required** (cell 4 uses same-quote nested f-strings, a SyntaxError on 3.10/3.11). The `language_info` metadata was corrected accordingly. `src/01_data.py` has the portable version.
 * Some printed prompts still say "paste this output back to your assistant"; they are leftovers from AI-assisted development and have no effect.
 * It uses `LAG = 0` throughout and contains no M7; M7 and LAG = 1 exist only in `src/04_models.py`.
-* Class-balance diagnostics (Table 5.7) and the M0r/M6 additions exist only in the notebook / were added after a pilot (see report Appendix A).
+* M0r and M6 were added after a pilot (report Appendix A). The class-balance diagnostics (Table 5.7) are also in `src/05_analysis.py` (Cell 2b).
 * Row-bootstrap intervals need the saved predictions; protocol-gap intervals use 2,000 seed resamples, row bootstrap 1,000.
 
 The same pipeline is split across `src/01_data.py` ... `src/05_analysis.py`. The earlier empty stub notebooks were removed.

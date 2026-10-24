@@ -95,7 +95,7 @@ python src/04_models.py    # reported grid: M0, M0r, M1-M6 = 240 evaluations (18
 python src/05_analysis.py
 python src/06_diagrams.py  # no data needed
 ```
-The scripts are written as `# %%` cells and were run cell by cell in Colab. The scripts were only smoke-tested on a small synthetic dataset (no results derived from it); the reported numbers come from the executed notebook, which needs Python ≥ 3.12 (cell 4). `src/04_models.py` defaults to M0–M6 (240 evaluations); M7 is implemented but was never run on real data, and the LAG=1 option was not run either. The class-balance diagnostics (Table 5.7) exist only in the notebook.
+The scripts are written as `# %%` cells and were run cell by cell in Colab. The scripts were only smoke-tested on a small synthetic dataset (no results derived from it); the reported numbers come from the executed notebook, which needs Python ≥ 3.12 (cell 4). `src/04_models.py` defaults to M0–M6 (240 evaluations); M7 is implemented but was never run on real data, and the LAG=1 option was not run either.
 
 ## Transparency
 

@@ -3,6 +3,11 @@
 Everything below is copied from the raw cell outputs of `notebooks/BTP_pipeline_executed.ipynb` (also saved as text in `results/logs/`).
 Nothing is re-typed or rounded further. M7 (gated fusion) and the LAG = 1 run were **not** executed on real data.
 
+> **Reading notes (added after the consistency audit; raw outputs below are untouched).**
+> * The "15 missing / expected 2,689 trading days" line in the step-1 audit log comes from a US-federal-holiday approximation. Against the NYSE calendar only 2018-12-31 is absent; the other 14 listed dates are market closures.
+> * The seed-bootstrap intervals use 2,000 resamples (`seed_gap`, n=2000); the row-bootstrap intervals use 1,000.
+> * 240 evaluations = 8 models x 3 protocols x 10 seeds, of which 180 are trained networks (M1-M6) and 60 are non-trained baselines (M0, M0r).
+
 Conventions: Macro-F1 is the primary metric. Seeds 0-9. P3 = strict chronological protocol. Class order Fall / Neutral / Rise.
 Test split: 317 rows, 2019-02-13 to 2020-09-21; true class shares 0.230 / 0.451 / 0.319.
 
