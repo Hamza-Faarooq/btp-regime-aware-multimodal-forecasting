@@ -42,7 +42,8 @@ M6 & 0.486 & 0.456 & 0.482 & 0.004\\
 \end{tabular}
 \caption{Macro-F1 on training, validation and test rows under P3 (mean over 10 seeds). Large train--test gaps for the models using the 768-dimensional embedding (M2, M3, M4) indicate overfitting.}\label{tab:overfit}
 \end{table}
-Table~\ref{tab:overfit} shows that the price-only model has almost no train--test gap (0.477 versus 0.466), whereas adding the 768-dimensional embedding raises training Macro-F1 to 0.554 and lowers test Macro-F1 to 0.416. The news-only model fits training rows well (0.701) but generalises poorly (0.382).
+Table~\ref{tab:overfit} shows that the price-only model has almost no train--test gap (0.477 versus 0.466), whereas adding the 768-dimensional embedding raises training Macro-F1 to 0.554 and lowers test Macro-F1 to 0.416. The news-only model fits training rows well (0.701) but generalises poorly (0.382). Figure~\ref{fig:tvt} shows the same numbers: for M2, M3 and M4 the training bar sits well above the validation and test bars, whereas for M1 and M6 the three bars are close.
+\begin{figure}[H]\centering\includegraphics[width=\textwidth]{fig_train_valid_test.png}\caption{Macro-F1 on training, validation and test rows under P3 (mean $\pm$ s.d.\ over ten seeds; dotted line: random-guess level 0.333). Same values as Table~\ref{tab:overfit}.}\label{fig:tvt}\end{figure}
 
 \subsection{Effect of the Evaluation Protocol (RQ1)}\label{sec:protocol-results}
 \begin{table}[H]
@@ -80,6 +81,9 @@ M6 & \textbf{$-0.051$ [$-0.079$, $-0.019$]} & $-0.034$ [$-0.071$, 0.005]\\
 \caption{Optimistic performance gap (looser protocol minus P3) with 95\% bootstrap intervals over seeds. Positive values mean the looser protocol scores higher. Intervals resample the ten seeds of each protocol independently; they exclude test-row uncertainty, and P1 also changes the test sample.}\label{tab:gaps}
 \end{table}
 \figpage{fig_protocol_audit.png}{\textwidth}{Test Macro-F1 under the three evaluation protocols (mean over ten seeds, error bars $\pm1$ s.d.; dotted line: mean random-guess score, about 0.33). The protocol gaps are in Table~\ref{tab:gaps}.}
+Figure~\ref{fig:seeds} plots every one of the 240 evaluations behind these bars. For the trained models the standard deviation over the ten seeds is between 0.010 and 0.051 depending on model and protocol (0.019 to 0.038 under P3, Table~\ref{tab:main}), which is as large as many of the differences between models and protocols; this is why intervals, rather than point differences, are used throughout. The majority-class baseline M0 has almost no spread under P2 and P3 because it is deterministic, and the regime-only model M5 repeats a few values, as expected for an input that takes only three distinct values.
+\begin{figure}[H]\centering\includegraphics[width=\textwidth]{fig_seed_scatter.png}\caption{Test Macro-F1 of each of the 240 model--protocol--seed evaluations (one dot per seed; black bar: mean over seeds; dotted line: 0.333).}\label{fig:seeds}\end{figure}
+
 For the models that use lagged prices and/or news (M1--M4) the looser protocols did \emph{not} score reliably higher than the strict one; all eight intervals for M1--M4 include zero. The exception is the regime-only model M5, which scores higher under both looser protocols (+0.046 and +0.028). Two mechanisms could contribute and were not separated here: under P1 a random split places near neighbours of each test day in the training set, and under P1 and P2 fitting the clusters on all data lets test-period structure shape the regime labels. P2$-$P3 shares the test rows and is the cleaner contrast (+0.028, interval near zero). For M6 the strict protocol scored \emph{higher} than the random split. This reversal reinforces that the protocol gaps are model-dependent; because P1 changes the test sample across seeds, the observed gap also reflects sample composition and run-to-run variability, not leakage alone. Hypothesis H1 is therefore \textbf{not supported in general}, and only weakly and exploratorily suggested for the model that relies solely on a slowly varying state.
 
 \subsection{Value of News and Regime Information (RQ2)}\label{sec:regime-results}
@@ -151,6 +155,9 @@ M6 per-class F1 & 0.397 & 0.690 & 0.358\\
 \caption{Predicted shares and per-class F1 on the P3 test set (10 seeds).}\label{tab:classdiag}
 \end{table}
 The Neutral-class F1 is almost identical for M1 and M6 (0.687 and 0.690). The sentiment model trades Rise for Fall (Fall F1 $0.291\to0.397$, Rise F1 $0.420\to0.358$) and predicts Fall on 32\% of days versus 19\% for the price-only model (true share 23\%). This is consistent with the small and unreliable overall change: the news input shifts the balance between the two directional classes but adds no clear skill.
+
+Figure~\ref{fig:shares} shows the predicted shares of Table~\ref{tab:classdiag} against the true shares. All four models predict Neutral more often than its true share (0.451), and the models that use news predict Rise for only 12--18\% of rows against a true share of 32\%, so a large part of the differences in Macro-F1 between models reflects how the predictions are distributed across classes.
+\begin{figure}[H]\centering\includegraphics[width=\textwidth]{fig_class_shares.png}\caption{Predicted class shares on the P3 test set (mean over ten seeds) for the price-only, price-plus-embedding, price-plus-embedding-plus-regime and price-plus-sentiment models, against the true shares.}\label{fig:shares}\end{figure}
 
 \subsection{Summary of Hypotheses}
 \begin{table}[H]

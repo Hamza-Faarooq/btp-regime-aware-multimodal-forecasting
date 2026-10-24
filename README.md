@@ -72,10 +72,10 @@ Full tables with confidence intervals: [`results/EXECUTED_RESULTS.md`](results/E
 ## Repository map
 
 ```text
-src/            01_data.py  02_regimes.py  03_finbert.py  04_models.py  05_analysis.py  06_diagrams.py
+src/            01_data.py  02_regimes.py  03_finbert.py  04_models.py  05_analysis.py  06_diagrams.py  07_extra_figures.py
 notebooks/      BTP_pipeline_executed.ipynb   (the run that produced all numbers)
 results/        EXECUTED_RESULTS.md, logs/    (raw cell outputs)
-figures/        eda_overview, regimes_overview, fig_protocol_audit, fig_regime_news_value, fig_architecture, fig_protocol_design, fig_dataset_timeline
+figures/        eda_overview, regimes_overview, fig_protocol_audit, fig_regime_news_value, fig_architecture, fig_protocol_design, fig_dataset_timeline, fig_seed_scatter, fig_train_valid_test, fig_class_shares
 data/           STEP1_AUDIT.md                (data files are regenerated, not committed)
 literature/     references.md, papers.csv     (reading list, see status inside)
 report/         BTP_Report.pdf, latex/ (source), README.md
@@ -94,6 +94,7 @@ python src/03_finbert.py   # GPU recommended
 python src/04_models.py    # reported grid: M0, M0r, M1-M6 = 240 evaluations (180 trained + 60 baseline), ~5 min on CPU
 python src/05_analysis.py
 python src/06_diagrams.py  # no data needed
+python src/07_extra_figures.py  # per-seed scatter, train/valid/test bars, class shares; reads results/ only
 ```
 The scripts are written as `# %%` cells and were run cell by cell in Colab. The scripts were only smoke-tested on a small synthetic dataset (no results derived from it); the reported numbers come from the executed notebook, which needs Python ≥ 3.12 (cell 4). `src/04_models.py` defaults to M0–M6 (240 evaluations); M7 is implemented but was never run on real data, and the LAG=1 option was not run either.
 
