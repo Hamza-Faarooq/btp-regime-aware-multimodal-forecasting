@@ -1,6 +1,6 @@
 # How Much Do Evaluation Choices Inflate Multimodal Market Prediction, and Does News Help Under Market Stress?
 ### Evaluation robustness and regime-dependent news value (BTP, IIT Kharagpur)
-
+  
 ## Undergraduate Thesis — IIT Kharagpur
 
 This repository contains the implementation and experimental record for a bachelor's thesis investigating the reliability of multimodal financial market prediction under different evaluation protocols and market conditions.
